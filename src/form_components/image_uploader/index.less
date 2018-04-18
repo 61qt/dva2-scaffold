@@ -1,0 +1,120 @@
+.normal {
+  :global {
+    .image-uploader {
+      border: 4px dashed #d9d9d9;
+      cursor: pointer;
+      display: block;
+      box-sizing: content-box;
+      position: relative;
+      margin-bottom: 10px;
+      &.image-uploader-origin {
+        > span, span.ant-upload {
+          position: static;
+        }
+      }
+      > span, span.ant-upload {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      .image-uploader-content {}
+
+      &, .image-uploader-trigger {
+        // width: 150px;
+        // height: 150px;
+        text-align: center;
+      }
+
+      &, .image-uploader-img {
+        border-radius: 6px;
+      }
+
+      .image-uploader-img {
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: block;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+        &.image-uploader-img-origin {
+          max-height: 100%;
+          max-width: 100%;
+          width: auto;
+          height: auto;
+          position: static;
+        }
+      }
+
+
+      .ant-upload.ant-upload-select {
+        height: 100%;
+        display: block;
+      }
+    }
+  }
+}
+
+.previewHidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  z-index: -1;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  :global {
+    .operate {
+      z-index: 10;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-right: -4px;
+      padding-top: 4px;
+      > button {
+        margin-left: 10px;
+      }
+    }
+    .img-cropper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+  }
+}
+
+.imageUploaderTrigger {
+  font-size: 28px;
+  color: #999;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  display: block;
+  width: 28px;
+  height: 28px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+
+.imageUploadTriggerContainer {
+  vertical-align: middle;
+  text-align: center;
+  z-index: 9;
+}
