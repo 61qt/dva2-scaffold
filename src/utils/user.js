@@ -1,7 +1,7 @@
-import DecodeJWT from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 const TokenName = 'jwtToken';
-const UserInfoName = 'USER_INFO';
+const UserInfoName = 'userInfo';
 
 export class UserService {
   get info() {
@@ -110,7 +110,7 @@ export class UserService {
 
   decodeToken(token = this.token) {
     try {
-      return DecodeJWT(token);
+      return jwtDecode(token);
     }
     catch (err) {
       return {};
@@ -125,7 +125,7 @@ export class UserService {
     }
 
     try {
-      const { exp } = DecodeJWT(token);
+      const { exp } = jwtDecode(token);
       return Date.now() < exp * 1000 - offset;
     }
     catch (error) {
@@ -140,6 +140,11 @@ export class UserService {
 
     const auth = this.decodeToken(token);
     return auth && 0 < auth.id;
+  }
+
+  clean() {
+    this.unsetInfo();
+    this.unsetToken();
   }
 }
 
