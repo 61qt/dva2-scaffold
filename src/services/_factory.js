@@ -3,6 +3,8 @@ import _ from 'lodash';
 import http from '../utils/http';
 import CONSTANTS from '../constants';
 
+export { http };
+
 export default function actionFactory({
   namespace,
   PAGE_SIZE = CONSTANTS.PAGE_SIZE,
