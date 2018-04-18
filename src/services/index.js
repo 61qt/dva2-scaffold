@@ -1,7 +1,7 @@
 import common from './common';
 import student from './student';
 
-export {
+export default {
   common,
   student,
 };
