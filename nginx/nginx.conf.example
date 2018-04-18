@@ -48,13 +48,6 @@ server {
 }
 
 server {
-  listen       80;
-  server_name  cdn.example.cn static.example.cn;
-
-  rewrite ^(.*)$ https://$http_host$request_uri$args break;
-}
-
-server {
   listen       443;
   server_name  cdn.example.cn static.example.cn;
 
