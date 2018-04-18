@@ -1,5 +1,9 @@
-import request from '../utils/request';
+import Factory from '../services/_factory';
 
-export function query() {
-  return request('/api/users');
-}
+const namespace = 'example';
+
+const Service = Factory({
+  namespace,
+});
+
+export default Service;
