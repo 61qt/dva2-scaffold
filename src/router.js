@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'dva/router';
-import index from './routes/index';
+import example from './routes/example';
 
 const AdminRoute = [];
 const WelcomeRoute = [];
