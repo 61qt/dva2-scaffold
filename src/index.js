@@ -12,7 +12,7 @@ import CONSTANTS, { DICT } from './constants';
 import * as Filters from './filters';
 // import jwt from './utils/jwt';
 // import createSentry from './utils/dva-sentry';
-// import request from './utils/request';
+import http from './utils/http';
 import * as Service from './services';
 // import modelIntercept from './utils/model_intercept';
 // import formErrorMessageShow from './utils/form_error_message_show';
@@ -74,7 +74,7 @@ if (__DEV__ || -1 < window.location.search.replace(/^\?/, '').split('&').indexOf
   // eslint-disable-next-line no-underscore-dangle
   // window.formErrorMessageShow = formErrorMessageShow;
   // eslint-disable-next-line no-underscore-dangle
-  // window.request = request;
+  window.http = http;
   // eslint-disable-next-line no-underscore-dangle
   window.dispatch = app._store.dispatch;
   // eslint-disable-next-line no-underscore-dangle
