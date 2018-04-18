@@ -11,11 +11,11 @@ import 'blueimp-canvas-to-blob';
 // import CONSTANTS, {
 //   DICT,
 // } from './constants';
-// import * as Filters from './filters';
+import * as Filters from './filters';
 // import jwt from './utils/jwt';
 // import createSentry from './utils/dva-sentry';
 // import request from './utils/request';
-// import * as Service from './services';
+import * as Service from './services';
 // import modelIntercept from './utils/model_intercept';
 // import formErrorMessageShow from './utils/form_error_message_show';
 // import './utils/hotjar';
@@ -51,41 +51,34 @@ app.start('#root');
 // 全局变量挂载，仅供调试使用。
 if (__DEV__ || -1 < window.location.search.replace(/^\?/, '').split('&').indexOf('debug')) {
   // eslint-disable-next-line no-underscore-dangle
-  window.____app = app;
+  window.app = app;
   // eslint-disable-next-line no-underscore-dangle
-  window.____jQuery = jQuery;
+  window._ = _;
   // eslint-disable-next-line no-underscore-dangle
-  window.____$ = jQuery;
+  window.jQuery = jQuery;
+  window.$ = jQuery;
   // eslint-disable-next-line no-underscore-dangle
-  window.____lodash = _;
-  // eslint-disable-next-line no-underscore-dangle
-  window.____moment = moment;
-  // eslint-disable-next-line no-underscore-dangle
-  // window.____DICT = DICT;
+  window.moment = moment;
   // eslint-disable-next-line no-underscore-dangle
   // window.DICT = DICT;
   // eslint-disable-next-line no-underscore-dangle
-  // window.____CONSTANTS = CONSTANTS;
+  // window.CONSTANTS = CONSTANTS;
   // eslint-disable-next-line no-underscore-dangle
-  // window.____Filters = Filters;
-  // eslint-disable-next-line no-underscore-dangle
-  // window.Filters = Filters;
-  // eslint-disable-next-line no-underscore-dangle
-  // window.____jwt = jwt;
+  window.Filters = Filters;
   // eslint-disable-next-line no-underscore-dangle
   // window.jwt = jwt;
   // eslint-disable-next-line no-underscore-dangle
-  window.____browserHistory = browserHistory;
+  window.browserHistory = browserHistory;
   // eslint-disable-next-line no-underscore-dangle
-  window.____React = React;
+  window.React = React;
   // eslint-disable-next-line no-underscore-dangle
-  // window.____Service = Service;
+  window.Service = Service;
   // eslint-disable-next-line no-underscore-dangle
-  // window.____formErrorMessageShow = formErrorMessageShow;
+  // window.formErrorMessageShow = formErrorMessageShow;
   // eslint-disable-next-line no-underscore-dangle
-  // window.____request = request;
+  // window.request = request;
   // eslint-disable-next-line no-underscore-dangle
-  window.____dispatch = app._store.dispatch;
+  window.dispatch = app._store.dispatch;
   // eslint-disable-next-line no-underscore-dangle
-  // window.____modelIntercept = modelIntercept;
+  // window.modelIntercept = modelIntercept;
 }
