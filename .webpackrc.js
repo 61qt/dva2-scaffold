@@ -58,7 +58,7 @@ let config = {
   },
   env: {
     development: {
-      // publicPath: '',
+      publicPath: '/',
       extraBabelPlugins: [
         // 'dva-hmr',
       ],

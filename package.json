@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "start": "TSLINT=none ESLINT=none RELEASE_ENV=DEV PORT=9100 roadhog dev",
+    "start": "TSLINT=none ESLINT=none BROWSER=none RELEASE_ENV=DEV PORT=9100 roadhog dev",
     "anstart": "ANALYZE=true && npm run start",
-    "build": "TSLINT=none ESLINT=none RELEASE_ENV=RELEASE roadhog build",
+    "build": "TSLINT=none ESLINT=none BROWSER=none RELEASE_ENV=RELEASE roadhog build",
     "release": "npm run build",
     "lint": "eslint --ext .js --fix src test",
     "precommit": "npm run lint"
