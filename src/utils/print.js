@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import formErrorMessageShow from './form_error_message_show';
 
 // 新窗口，css 写在这。不能写行内。
 const printStyle = `
@@ -173,6 +174,7 @@ export default function ({ data }) {
   }
   catch (err) {
     // 浏览器阻止了弹出窗口，请前往浏览器“设置-高级-内容设置”中修改
+    formErrorMessageShow('调用打印失败，请使用最新版本浏览器或者联系管理员，浏览器阻止了弹出窗口，请前往浏览器“设置-高级-内容设置”中修改');
     // chrome://settings/contentExceptions#popups
   }
 }
