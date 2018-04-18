@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Switch } from 'dva/router';
+import { Router, Route } from 'dva/router';
 import index from './routes/index';
 
 const AdminRoute = [];
@@ -26,9 +26,7 @@ function RouterConfig({ history }) {
           </Route>
         */
       }
-      <Switch>
-        <Route path="/" exact component={index} />
-      </Switch>
+      <Route path="/admin" exact component={index} />
     </Router>
   );
 }

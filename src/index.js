@@ -3,7 +3,8 @@ import _ from 'lodash';
 import jQuery from 'jquery';
 import moment from 'moment';
 import dva from 'dva';
-import { browserHistory } from 'dva/router';
+import createHistory from 'history/createBrowserHistory';
+
 import createLoading from 'dva-loading';
 import 'blueimp-canvas-to-blob';
 
@@ -19,8 +20,9 @@ import 'blueimp-canvas-to-blob';
 // import formErrorMessageShow from './utils/form_error_message_show';
 // import './utils/hotjar';
 
-
 import './index.less';
+
+const browserHistory = createHistory();
 
 window.debugAdd = function debugAdd(key, memory) {
   window.debugAddSave = window.debugAddSave || {};
