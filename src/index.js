@@ -8,9 +8,7 @@ import createHistory from 'history/createBrowserHistory';
 import createLoading from 'dva-loading';
 import 'blueimp-canvas-to-blob';
 
-// import CONSTANTS, {
-//   DICT,
-// } from './constants';
+import CONSTANTS, { DICT } from './constants';
 import * as Filters from './filters';
 // import jwt from './utils/jwt';
 // import createSentry from './utils/dva-sentry';
@@ -60,9 +58,9 @@ if (__DEV__ || -1 < window.location.search.replace(/^\?/, '').split('&').indexOf
   // eslint-disable-next-line no-underscore-dangle
   window.moment = moment;
   // eslint-disable-next-line no-underscore-dangle
-  // window.DICT = DICT;
+  window.DICT = DICT;
   // eslint-disable-next-line no-underscore-dangle
-  // window.CONSTANTS = CONSTANTS;
+  window.CONSTANTS = CONSTANTS;
   // eslint-disable-next-line no-underscore-dangle
   window.Filters = Filters;
   // eslint-disable-next-line no-underscore-dangle
