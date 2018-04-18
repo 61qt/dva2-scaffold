@@ -7,6 +7,7 @@ import _ from 'lodash';
 import * as qiniuImageUploaderUtil from '../../utils/qiniu_img_uploader';
 import Filters from '../../filters';
 import styles from './index.less';
+import formErrorMessageShow from '../../utils/form_error_message_show';
 
 const DEFAULT_CROPPER_OPTIONS = {
   responsive: true,
@@ -168,6 +169,14 @@ export default class Component extends React.Component {
   runQiniuUpload = (blob) => {
     if (this.cropperOptions.maxSize <= blob.size) {
       this.closeUpload();
+      formErrorMessageShow({
+        // eslint-disable-next-line no-restricted-properties
+        msg: `图片过大，不能大于${this.getSize(this.cropperOptions.maxSize)}`,
+        data: {
+          // eslint-disable-next-line no-restricted-properties
+          fileSize: `当前图片大小：${this.getSize(blob.size)}`,
+        },
+      });
       return false;
     }
 
