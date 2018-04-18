@@ -26,7 +26,7 @@ function RouterConfig({ history }) {
           </Route>
         */
       }
-      <Route path="/admin" exact component={index} />
+      <Route path="/app" exact component={index} />
     </Router>
   );
 }

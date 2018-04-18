@@ -21,7 +21,7 @@ server {
   add_header Strict-Transport-Security "max-age=1";
 
   location = / {
-    rewrite ^(.*)$ https://$http_host/admin/ break;
+    rewrite ^(.*)$ https://$http_host/app/ break;
   }
 
   location / {
@@ -41,7 +41,7 @@ server {
     proxy_pass http://localhost:9100/index.html?#;
   }
 
-  location ^~ /admin/ {
+  location ^~ /app/ {
     # 注意改造成为自己启动的那个 ip 及端口
     proxy_pass http://localhost:9100/index.html?#;
   }
@@ -62,7 +62,7 @@ server {
 
   location = / {
     # gulp webpack output dist path
-    rewrite ^(.*)$ https://$http_host/admin/ break;
+    rewrite ^(.*)$ https://$http_host/app/ break;
   }
 
   location / {
@@ -81,7 +81,7 @@ server {
     try_files $uri $uri/ $uri.html /index.html =404;
   }
 
-  location ^~ /admin {
+  location ^~ /app {
     root ${devRoot}/dist/;
     index index.html;
     try_files $uri $uri/ $uri.html /index.html =404;
