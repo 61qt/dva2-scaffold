@@ -9,3 +9,7 @@
 # misc
 .DS_Store
 npm-debug.log*
+
+nginx/nginx.conf
+
+yarn-error.log
