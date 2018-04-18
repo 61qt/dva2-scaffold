@@ -1,0 +1,36 @@
+.normal {
+}
+
+:global {
+  .detail-view {
+    > table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      empty-cells: show;
+      border: 1px solid #e9e9e9;
+      width: 100%;
+      margin: 8px 0 16px;
+      word-wrap: break-word;
+      white-space: normal;
+      word-break: break-all;
+      th {
+        white-space: nowrap;
+        color: #5c6b77;
+        font-weight: 600;
+        background: #f7f7f7;
+      }
+      td, th {
+        border: 1px solid #e9e9e9;
+        padding: 8px 16px;
+        text-align: left;
+      }
+      td:first-child {
+        border-left: 0;
+        width: 10em;
+      }
+      td:last-child {
+        border-left: 0;
+      }
+    }
+  }
+}
