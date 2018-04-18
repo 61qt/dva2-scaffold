@@ -1,7 +1,11 @@
 import age from './age';
 import datetime from './datetime';
+import dict from './dict';
+import qiniuImage from './qiniuImage';
 
-export {
+export default {
   age,
   datetime,
+  dict,
+  qiniuImage,
 };
