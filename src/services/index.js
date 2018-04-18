@@ -1,8 +1,8 @@
-import example from './example';
+import common from './common';
 import student from './student';
 
 export {
-  example,
+  common,
   student,
 };
 
