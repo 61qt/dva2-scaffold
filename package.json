@@ -1,15 +1,17 @@
 {
   "private": true,
   "scripts": {
-    "start": "RELEASE_ENV=DEV PORT=9100 roadhog dev",
+    "start": "TSLINT=none ESLINT=none RELEASE_ENV=DEV PORT=9100 roadhog dev",
     "anstart": "ANALYZE=true && npm run start",
-    "build": "RELEASE_ENV=RELEASE roadhog build",
+    "build": "TSLINT=none ESLINT=none RELEASE_ENV=RELEASE roadhog build",
     "release": "npm run build",
     "lint": "eslint --ext .js --fix src test",
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "dva": "^2.2.2"
+    "blueimp-canvas-to-blob": "^3.14.0",
+    "dva": "^2.2.2",
+    "dva-loading": "^2.0.0"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",
