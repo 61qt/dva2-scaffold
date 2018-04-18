@@ -1,0 +1,96 @@
+# 这个是例子。需要把 ${devRoot} 替换成仓库目录。
+# 证书制作参考 http://blog.sina.com.cn/s/blog_870c35680101bws1.html ，所以访问的时候会有警告处理，记得点击确认。
+
+server {
+  listen       80;
+  server_name  www-dev.example.cn;
+  rewrite ^(.*)$ http://$http_host/ break;
+}
+
+server {
+  listen       443;
+  server_name  www-dev.example.cn;
+
+  ssl on;
+  ssl_certificate ${devRoot}/nginx/ssl.crt;
+  ssl_certificate_key ${devRoot}/nginx/ssl.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_prefer_server_ciphers on;
+  ssl_session_timeout 10m;
+  add_header Strict-Transport-Security "max-age=1";
+
+  location = / {
+    rewrite ^(.*)$ https://$http_host/admin/ break;
+  }
+
+  location / {
+    # 注意 localhost 改造成为那个 ip 和端口
+    proxy_pass http://localhost:9100/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+
+  location ^~ /welcome/ {
+    # 注意改造成为自己启动的那个 ip 及端口
+    proxy_pass http://localhost:9100/index.html?#;
+  }
+
+  location ^~ /admin/ {
+    # 注意改造成为自己启动的那个 ip 及端口
+    proxy_pass http://localhost:9100/index.html?#;
+  }
+}
+
+server {
+  listen       80;
+  server_name  cdn.example.cn static.example.cn;
+
+  rewrite ^(.*)$ https://$http_host$request_uri$args break;
+}
+
+server {
+  listen       443;
+  server_name  cdn.example.cn static.example.cn;
+
+  ssl on;
+  ssl_certificate ${devRoot}/nginx/ssl.crt;
+  ssl_certificate_key ${devRoot}/nginx/ssl.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_prefer_server_ciphers on;
+  ssl_session_timeout 10m;
+  add_header Strict-Transport-Security "max-age=1";
+
+  location = / {
+    # gulp webpack output dist path
+    rewrite ^(.*)$ https://$http_host/admin/ break;
+  }
+
+  location / {
+    # dist 为打包编译后的文件目录
+    root ${devRoot}/dist/;
+
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Credentials' 'true';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+  }
+
+  location ^~ /welcome {
+    root ${devRoot}/dist/;
+    index index.html;
+    try_files $uri $uri/ $uri.html /index.html =404;
+  }
+
+  location ^~ /admin {
+    root ${devRoot}/dist/;
+    index index.html;
+    try_files $uri $uri/ $uri.html /index.html =404;
+  }
+}
