@@ -26,10 +26,8 @@ class Component extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    state,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 export default connect(mapStateToProps)(Component);
