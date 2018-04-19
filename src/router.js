@@ -1,32 +1,18 @@
 import React from 'react';
-import { Router, Route } from 'dva/router';
+import { Router, Switch, Route, Redirect } from 'dva/router';
+
+// 例子模块，exact 精确匹配
 import example from './routes/example';
+// 获取授权的模块，非精确匹配
+import Welcome from './routes/welcome';
 
-const AdminRoute = [];
-const WelcomeRoute = [];
-
-if (__DEV__ && __PROD__) {
-  // 强制 false ，不会输出进来的
-  window.console.log(AdminRoute, WelcomeRoute);
-}
-
-// function RouterConfig({ history, app, location }) {
 function RouterConfig({ history }) {
-  // eslint-disable-next-line no-underscore-dangle
-  // const dispatch = app._store.dispatch;
   return (
     <Router history={history}>
-      {
-        /*
-          <Route path="/welcome" component={Welcome} onEnter={WelcomeOnEnter({ dispatch, location, history })}>
-            { WelcomeRoute }
-          </Route>
-          <Route path="/admin" component={Admin} onEnter={AdminOnEnter({ dispatch, location, history })}>
-            { AdminRoute }
-          </Route>
-        */
-      }
-      <Route path="/app" exact component={index} />
+      <Switch>
+        <Route path="/example" exact component={example} />
+        <Route path="/welcome" component={Welcome} />
+      </Switch>
     </Router>
   );
 }
