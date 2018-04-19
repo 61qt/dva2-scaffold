@@ -173,7 +173,7 @@ class Component extends React.Component {
           <Layout.Sider collapsedWidth="50" breakpoint="md" bak-breakpoint="xl" width={200} className={styles.sider} collapsed={this.state.collapsed} collapsible onCollapse={this.handleCollapse} trigger={this.getTrigger()}>
             <div className={`mainLayoutHeaderLogoContainer ${styles.headerLogoContainer} clearfix`}>
               <div className={styles.headerCenter}>
-                <img className={styles.headerLogoImg} src={CONSTANTS.LOGO} alt="管理系统logo" /><span className={styles.headerName}>XXX管理系统</span>
+                <img className={styles.headerLogoImg} src={CONSTANTS.LOGO} alt="管理系统logo" /><span className={styles.headerName}>管理系统</span>
               </div>
             </div>
             <AppMenu collapsed={this.state.collapsed} location={location} history={history} />
