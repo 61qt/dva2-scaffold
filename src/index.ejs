@@ -6,14 +6,18 @@
   <title>dva2 脚手架</title>
   <link href="//cdn.bootcss.com/spinkit/1.2.5/spinkit.min.css" rel="stylesheet" media="screen">
   <link href="//cdn.bootcss.com/antd/3.4.1/antd.min.css" rel="stylesheet">
-  <style> html, body, #root, #app-root {height: 100%; } body {background-color: #eef4fa; } .app-loading-tip {position: absolute; margin: auto; margin-top: -100px; top: 50%; left: 0; bottom: 0; right: 0; text-align: center; color: #999; height: 150px; } .sk-wave {width: 200px;} .sk-wave.app-loading-wave .app-loading-rect {background-color: #68bf4a; margin: 0 1px; } </style>
+  <style> html, body, #root, #app-root {height: 100%; } body {background-color: #eef4fa; } </style>
+  <!-- loading 及浏览器支持判断 -->
+  <style>@keyframes browser-tip {0% {opacity: 0; z-index: -1; } 10% {opacity: 0; z-index: 999999; } 50% {opacity: 1; z-index: 999999; } 90% {opacity: 1; z-index: 999999; } 100% {opacity: 0; z-index: -1; } } .browser-tip {width: 100%; line-height: 40px; height: 40px; background: #129fdd; position: fixed; top: 0; left: 0; z-index: 99; text-align: center; font-size: 14px; display: none; opacity: 1; z-index: -1; animation: browser-tip 15s ease-in infinite; color: #fff; } .browser-tip a {color: #fff; font-size: 28px; text-decoration: underline; } .app-loading-tip {position: absolute; margin: auto; margin-top: -100px; top: 50%; left: 0; bottom: 0; right: 0; text-align: center; color: #999; height: 150px; } .sk-wave {width: 200px;} .sk-wave.app-loading-wave .app-loading-rect {background-color: #68bf4a; margin: 0 1px; }</style>
   <link id="head-favicon" type="image/x-icon" rel="icon" href="" />
+  <script>
+    window.____loadingHtml = '<div class="app-loading-tip" id="app-loading-tip"> <div class="sk-wave app-loading-wave"> <div class="app-loading-rect sk-rect sk-rect1"></div> <div class="app-loading-rect sk-rect sk-rect2"></div> <div class="app-loading-rect sk-rect sk-rect3"></div> <div class="app-loading-rect sk-rect sk-rect4"></div> <div class="app-loading-rect sk-rect sk-rect5"></div> </div> <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统正在初始化，请等待...</div> </div>';
+  </script>
 </head>
 <body>
   <div id="root">
-    <!-- loading 及浏览器支持判断 -->
-    <style>@keyframes browser-tip {0% {opacity: 0; z-index: -1; } 10% {opacity: 0; z-index: 999999; } 50% {opacity: 1; z-index: 999999; } 90% {opacity: 1; z-index: 999999; } 100% {opacity: 0; z-index: -1; } } .browser-tip {width: 100%; line-height: 40px; height: 40px; background: #129fdd; position: fixed; top: 0; left: 0; z-index: 99; text-align: center; font-size: 14px; display: none; opacity: 1; z-index: -1; animation: browser-tip 15s ease-in infinite; color: #fff; } .browser-tip a {color: #fff; font-size: 28px; text-decoration: underline; }</style>
-    <div id="browser-tip" class="browser-tip">为获取更好的用户体验，建议使用最新版本 <a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌浏览器</a> 进行浏览。</div> <div class="app-loading-tip" id="app-loading-tip"> <div class="sk-wave app-loading-wave"> <div class="app-loading-rect sk-rect sk-rect1"></div> <div class="app-loading-rect sk-rect sk-rect2"></div> <div class="app-loading-rect sk-rect sk-rect3"></div> <div class="app-loading-rect sk-rect sk-rect4"></div> <div class="app-loading-rect sk-rect sk-rect5"></div> </div> <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统正在初始化，请等待...</div> </div>
+    <div id="browser-tip" class="browser-tip">为获取更好的用户体验，建议使用最新版本 <a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌浏览器</a> 进行浏览。</div>
+    <script>document.write(window.____loadingHtml)</script>
 
     <script src="//cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
     <script src="//cdn.bootcss.com/lodash.js/4.17.5/lodash.min.js"></script>
@@ -32,7 +36,7 @@
     <!-- 删除无聊的 warning -->
     <script type="text/javascript">
       const ignoreMessage = [
-        'Warning',
+        'Warning: getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.',
       ];
       /* eslint-disable */
       var __oldConsoleError = window.console.error.bind(console);
