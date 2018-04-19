@@ -10,4 +10,18 @@ Service.loginToken = () => {
   return http.get('/login_token');
 };
 
+Service.login = (values) => {
+  // 登录，不需要带 token
+  return http.post('/login', values, {
+    skipAuthorization: true,
+  });
+};
+
+Service.ticketLogin = (ticket) => {
+  // ticket 登录，不需要带 token
+  return http.get(`/token/${ticket}`, {}, {
+    skipAuthorization: true,
+  });
+};
+
 export default Service;
