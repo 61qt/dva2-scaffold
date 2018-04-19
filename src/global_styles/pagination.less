@@ -1,0 +1,27 @@
+:global {
+  @media (max-width: 600px) {
+    .ant-pagination {
+      .ant-pagination-prev, .ant-pagination-next, .ant-pagination-item, .ant-pagination-options-quick-jumper {
+        min-width: 20px;
+        height: 20px;
+        line-height: 20px;
+        margin-right: 2px;
+        input {
+          width: 30px;
+          height: 20px;
+          margin: 0;
+          line-height: 1em;
+        }
+      }
+      .ant-pagination-options {
+        margin-left: 2px;
+      }
+      .ant-pagination-prev, .ant-pagination-next {
+        a:after {
+          height: 20px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}

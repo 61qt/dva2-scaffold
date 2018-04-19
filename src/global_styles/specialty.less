@@ -1,0 +1,38 @@
+:global {
+  .show-specialty {
+    &, .ant-select-selection, .ant-select-selection__rendered {
+      display: inline-block!important;
+      border: 0!important;
+      margin-left: 0!important;
+      margin-right: 0!important;
+      position: relative!important;
+      width: auto!important;
+      float: left;
+      padding-right: 4px;
+    }
+    .ant-select-selection-selected-value {
+      padding-right: 0;
+    }
+    .ant-select-selection__rendered {
+      &:after {
+        display: block;
+        position: absolute;
+        right: 0;
+        content: ',';
+        z-index: 100;
+        visibility: visible;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        width: 0;
+        z-index: 0;
+      }
+    }
+    .ant-select-selection {
+      background: none!important;
+    }
+    .ant-select-arrow {
+      display: none;
+    }
+  }
+}

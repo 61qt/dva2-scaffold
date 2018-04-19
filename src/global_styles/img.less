@@ -1,0 +1,57 @@
+:global {
+  img, .img {
+    // border: 1px solid $border-color-base;
+    // box-shadow: 0.0625rem 0.0625rem 0.0625rem 0 rgba(0, 0, 0, 0.07), 0.0625rem 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.06);
+    // @include transition(box-shadow .25s);
+  }
+
+  .img-1-1 (@size) {
+    max-width: @size;
+    max-height: @size;
+    width: 100%;
+    height: 100%;
+    &.image-uploader {
+      width: @size;
+      height: @size;
+    }
+  }
+  .img-16-9 (@size) {
+    max-width: @size / 9 * 16;
+    max-height: @size;
+    width: 100%;
+    height: 100%;
+    &.image-uploader {
+      width: @size / 9 * 16;
+      height: @size;
+    }
+  }
+
+  .img-1-1-40 {
+    // 列表的头像
+    .img-1-1(40px);
+  }
+  .img-16-9-40 {
+    // 列表的头像
+    .img-16-9(40px);
+  }
+  .img-1-1-80 {
+    // 非列表的头像
+    .img-1-1(80px);
+  }
+  .img-1-1-150 {
+    // 非列表的头像
+    .img-1-1(150px);
+  }
+  .img-16-9-168 {
+    // 上传封面编辑的的
+    .img-16-9(168px);
+  }
+  .img-16-9-160 {
+    // 上传封面编辑的的
+    .img-16-9(160px);
+  }
+  .img-16-9-170 {
+    // 封面展示的。
+    .img-16-9(170px);
+  }
+}

@@ -1,0 +1,415 @@
+/**
+ * Tiles
+ * 瓦片样式
+ */
+
+@blue              : #0073b7;
+@cyan              : #129fdd;
+@green             : #68bf4a;
+@yellow            : #ffdc00;
+@orange            : #ffae00;
+@red               : #f04134;
+@pink              : #e91e63;
+@amethyst          : #ba79cb;
+@gray              : #dbe1e8;
+@black             : #333333;
+@light-gray        : #666666;
+@white             : #ffffff;
+
+@tile-palette: blue, cyan, green, yellow, orange, red, pink, amethyst, black, gray, white;
+
+:global {
+  .tile {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    background-color: @gray;
+    text-decoration: none;
+    color: #fff;
+    box-shadow:
+      1px 1px 1px 0 rgba(0,0,0,.07),
+      1px 2px 5px 0 rgba(0,0,0,.06);
+
+    &:hover {
+      box-shadow:
+        0 5px 11px 0 rgba(0,0,0,.18),
+        0 4px 15px 0 rgba(0,0,0,.15);
+    }
+
+    &:focus,
+    &:link,
+    &:visited,
+    &:active,
+    &:hover {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    > .tile-header {
+      position: relative;
+      padding: 15px;
+      padding-bottom: 0;
+    }
+
+    > .tile-header > h1,
+    > .tile-header > h2,
+    > .tile-header > h3,
+    > .tile-header > h4,
+    > .tile-header > h5,
+    > .tile-header > h6 {
+      margin: 0;
+    }
+
+    > .tile-header > .tile-widgets {
+      position: absolute;
+      right: 8px;
+      top: 6px;
+      z-index: 99;
+      display: inline-block;
+
+      a {
+        color: #Fff;
+        cursor: pointer;
+      }
+
+      .divider {
+        margin: 0 4px;
+      }
+    }
+
+    > .tile-body {
+      position: relative;
+      padding: 15px;
+      padding-top: 15px;
+    }
+  }
+
+  .tile.tile-bar {
+    display: block;
+    border-top: 2px solid;
+    cursor: default;
+
+    .title {
+      display: block;
+      padding: 15px;
+      width: 100%;
+
+      > h3 {
+        display: block;
+        font-size: 15px;
+      }
+
+      > p {
+        display: block;
+        margin-bottom: 0;
+        min-height: 34px;
+        font-size: 12px;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      right: 20px;
+      bottom: 5px;
+      z-index: 1;
+      color: rgba(0, 0, 0, .1);
+
+      i {
+        margin: 0;
+        padding: 0;
+        font-size: 100px;
+        line-height: 0;
+        vertical-align: bottom;
+      }
+    }
+  }
+
+  a.tile.tile-bar {
+    cursor: pointer;
+  }
+
+  /**
+   * State
+   * 状态样式
+   */
+
+  .tile.tile-state {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 20px;
+    background-color: @gray;
+    color: #fff;
+
+    &:hover {
+      background-color: darken(@gray, 4%);
+    }
+
+    .num,
+    h3,
+    h5,
+    p {
+      position: relative;
+      // z-index: 5;
+      margin: 0 0 8px 0;
+      padding: 0;
+      color: inherit;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    .num {
+      font-size: 38px;
+      font-family: 14px;
+      font-weight: 100;
+    }
+
+    .icon {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      z-index: 1;
+      color: rgba(0, 0, 0, .1);
+
+      i {
+        margin: 0;
+        padding: 0;
+        font-size: 100px;
+        line-height: 0;
+        vertical-align: bottom;
+      }
+    }
+
+  }
+
+
+  /**
+   * Progress Style
+   * 进程瓦片
+   */
+
+  .tile.tile-progress {
+    background-color: @gray;
+    color: #fff;
+
+    .tile-header {
+      padding: 15px 20px;
+      padding-bottom: 40px;
+
+      h3,
+      a,
+      span,
+      i {
+        color: inherit;
+      }
+
+      span {
+        margin-top: 4px;
+        color: rgba(255, 255, 255, .7);
+        font-size: 11px;
+      }
+
+      h3,
+      span {
+        display: block;
+      }
+    }
+
+    .tile-progressbar {
+      margin: 0;
+      height: 2px;
+      background: rgba(0,0,0,.18);
+
+      span {
+        display: block;
+        width: 0;
+        height: 100%;
+        background-color: #fff;
+      }
+    }
+
+    .tile-footer {
+      padding: 20px;
+      background: rgba(0,0,0,.1);
+      border-radius: 0 0 3px 3px;
+      text-align: right;
+
+      h4,
+      > span {
+        color: #fff;
+      }
+
+      h4 {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      > span {
+        margin-top: 4px;
+        color: rgba(255,255,255,.7);
+        font-size: 11px;
+      }
+    }
+  }
+
+
+  /**
+   * Title Styles
+   * 标题瓦片
+   */
+
+  .tile.tile-title {
+    position: relative;
+    display: block;
+    background-color: @gray;
+
+    &:hover {
+      background-color: darken(@gray, 4%);
+    }
+
+    .icon {
+      padding: 20px;
+      text-align: center;
+
+      i {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+        line-height: 1;
+        font-size: 60px;
+      }
+    }
+
+    .title {
+      text-align: center;
+      background-color: darken(@gray, 4%);
+      cursor: default;
+
+      h3,
+      p,
+      > div, {
+        margin: 0;
+        padding: 0 20px;
+        color: inherit;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        padding-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding-bottom: 20px;
+        height: 60px;
+        font-size: 11px;
+        color: rgba(255,255,255,.85);
+      }
+    }
+  }
+
+  /**
+   * Block Styles
+   * 块状瓦片
+   */
+
+  .tile.tile-block {
+    margin-bottom: 20px;
+    background-color: @gray;
+    color: #fff;
+
+    .tile-header {
+      padding: 20px;
+      color: #fff;
+      font-size: 17px;
+
+      a,
+      span,
+      > i {
+        color: #fff;
+      }
+
+      span {
+        margin-top: 4px;
+        display: block;
+        color: #fff;
+        font-size: 11px;
+      }
+
+      > i {
+        float: right;
+        font-size: 28px;
+        position: relative;
+        top: 4px;
+      }
+    }
+
+    .tile-content {
+      padding: 20px;
+      background-color: rgba(0,0,0,.03);
+    }
+
+    .tile-footer {
+      padding: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      background-color: rgba(0,0,0,.03);
+      color: #fff;
+      border-radius: 0 0 5px 5px;
+
+      a {
+        color: #fff;
+      }
+
+      .btn {
+        background-color: rgba(0,0,0,.1) !important;
+        border-bottom-width: 0;
+        color: #fff;
+      }
+    }
+  }
+
+  /**
+   * Palettes
+   * 其他调色板
+   */
+
+  // mixin to iterate over colors and create CSS class for each one
+  .make-color-classes(@i: length(@tile-palette)) when (@i > 0) {
+    .make-color-classes(@i - 1);
+    @color: extract(@tile-palette, @i);
+
+    .tile.tile-@{color},
+    .tile.tile-state.tile-@{color},
+    .tile.tile-progress.tile-@{color},
+    .tile.tile-title.tile-@{color}, {
+      background-color: @@color;
+
+      .tile-header,
+      .tile-content,
+      .tile-footer,
+      .tile-widgets a,
+      .title p {
+      }
+    }
+
+    .tile.tile-state.tile-@{color}:hover,
+    .tile.tile-title.tile-@{color}:hover,
+    .tile.tile-title.tile-@{color} .title {
+      background-color: darken(@@color, 4%);
+    }
+
+    .tile.tile-bar.tile-@{color} {
+      border-top-color: darken(@@color, 4%);
+    }
+  }
+
+  .make-color-classes();
+
+}

@@ -1,0 +1,34 @@
+:global {
+  .white-tooltip {
+    &.ant-tooltip-placement-right {
+      .ant-tooltip-arrow {
+        border-right-color: rgba(255, 255, 255, 0.85);
+      }
+    }
+    &.ant-tooltip-placement-topLeft, &.ant-tooltip-placement-top {
+      .ant-tooltip-arrow {
+        border-top-color: rgba(255, 255, 255, 0.85);
+      }
+    }
+    .ant-tooltip-inner {
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #000000;
+    }
+  }
+  .cyan-tooltip {
+    &.ant-tooltip-placement-right {
+      .ant-tooltip-arrow {
+        border-right-color: #108ee9;
+      }
+    }
+    &.ant-tooltip-placement-topLeft, &.ant-tooltip-placement-top {
+      .ant-tooltip-arrow {
+        border-top-color: #108ee9;
+      }
+    }
+    .ant-tooltip-inner {
+      background-color: #108ee9;
+      color: #ffffff;
+    }
+  }
+}

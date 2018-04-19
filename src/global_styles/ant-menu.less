@@ -1,0 +1,71 @@
+:global {
+  .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected,
+  .ant-menu.ant-menu-dark .ant-menu-item-selected {
+    background-color: #108ee9;
+  }
+  .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    background: #333;
+  }
+  .ant-menu-dark,
+  .ant-menu-dark .ant-menu-sub {
+    background: #404040;
+  }
+  .ant-layout-sider {
+    background: #404040;
+  }
+  .ant-layout-sider-trigger {
+    background: #404040;
+    background: rgba(64, 64, 64, .88);
+  }
+
+  .ant-menu-inline-collapsed>.ant-menu-item,
+  .ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-item,
+  .ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
+    padding: 0!important;
+  }
+  .ant-menu-submenu.ant-menu-submenu-popup .ant-menu{
+    padding: 10px!important;
+  }
+  .ant-menu-inline .ant-menu-item:not(:last-child),
+  .ant-menu-vertical-left .ant-menu-item:not(:last-child),
+  .ant-menu-vertical-right .ant-menu-item:not(:last-child),
+  .ant-menu-vertical .ant-menu-item:not(:last-child) {
+    margin-bottom: 0;
+  }
+  .ant-menu-inline .ant-menu-item,
+  .ant-menu-inline .ant-menu-submenu-title,
+  .ant-menu-vertical-left .ant-menu-item,
+  .ant-menu-vertical-left .ant-menu-submenu-title,
+  .ant-menu-vertical-right .ant-menu-item,
+  .ant-menu-vertical-right .ant-menu-submenu-title,
+  .ant-menu-vertical .ant-menu-item,
+  .ant-menu-vertical .ant-menu-submenu-title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: transparent;
+    color: #108ee9;
+  }
+
+  ul.ant-menu-horizontal.ant-menu-sub,
+  ul.ant-menu-vertical-left.ant-menu-sub,
+  ul.ant-menu-vertical-right.ant-menu-sub,
+  ul.ant-menu-vertical.ant-menu-sub {
+    min-width: 0!important;
+    text-align: center;
+
+  }
+
+  .ant-layout-sider-collapsed .ant-menu-item-selected,
+  .ant-layout-sider-collapsed .ant-menu-submenu-selected,
+  .ant-layout-sider-collapsed .ant-menu-item-selected > a,
+  .ant-layout-sider-collapsed .ant-menu-submenu-selected > a {
+    i.ant-menu-submenu-arrow {
+      &, &:after, &:before {
+        color: #108ee9;
+        background: #108ee9;
+      }
+    }
+  }
+}
