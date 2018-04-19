@@ -45,7 +45,6 @@ class Component extends React.Component {
     };
     Services.common.login(formData).then(({ data = {} }) => {
       // document.cookie = 'isLogout=false;path=/';
-      window.console.log('data', data);
       User.token = data.token;
       User.info = data.info;
 

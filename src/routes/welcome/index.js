@@ -29,7 +29,6 @@ class Component extends React.Component {
 
   render() {
     const { match } = this.props;
-    window.console.log('match.url', match.url);
     return (
       <div className={styles.normal}>
         <div className={styles.header}>
