@@ -30,14 +30,20 @@ const modelExtend = {
   },
   effects: {
     *getAccess(options, { call, put }) {
-      const data = yield call(Services.common.loginToken, {});
-      const access = _.get(data, 'data.access');
-      yield put({
-        type: 'saveAccess',
-        payload: {
-          access,
-        },
-      });
+      try {
+        const data = yield call(Services.common.loginToken, {});
+        const access = _.get(data, 'data.access');
+        yield put({
+          type: 'saveAccess',
+          payload: {
+            access,
+          },
+        });
+        return data;
+      }
+      catch (e) {
+        return Promise.reject(e);
+      }
     },
 
     *access({ payload: { access } }, { put }) {
@@ -47,6 +53,7 @@ const modelExtend = {
           access,
         },
       });
+      return access;
     },
 
     *list(options, { call, put }) {
@@ -61,9 +68,10 @@ const modelExtend = {
             page: 1,
           },
         });
+        return data;
       }
       catch (e) {
-        // do nothind
+        return Promise.reject(e);
       }
     },
   },

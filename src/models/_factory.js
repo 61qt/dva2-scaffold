@@ -86,9 +86,10 @@ export default function modelFactory({
               page: data.data.current_page,
             },
           });
+          return data;
         }
         catch (e) {
-          // do nothind
+          return Promise.reject(e);
         }
       },
 
@@ -105,39 +106,43 @@ export default function modelFactory({
               page: data.data.current_page,
             },
           });
+          return data;
         }
         catch (e) {
-          // do nothing
+          return Promise.reject(e);
         }
       },
 
       *remove({ payload: id }, { call, put }) {
         try {
-          yield call(Service.remove, id);
+          const data = yield call(Service.remove, id);
           yield put({ type: 'reload' });
+          return data;
         }
         catch (e) {
-          // do nothind
+          return Promise.reject(e);
         }
       },
 
       *update({ payload: { id, values } }, { call, put }) {
         try {
-          yield call(Service.update, id, values);
+          const data = yield call(Service.update, id, values);
           yield put({ type: 'reload' });
+          return data;
         }
         catch (e) {
-          // do nothind
+          return Promise.reject(e);
         }
       },
 
       *create({ payload: values }, { call, put }) {
         try {
-          yield call(Service.create, values);
+          const data = yield call(Service.create, values);
           yield put({ type: 'reload' });
+          return data;
         }
         catch (e) {
-          // do nothind
+          return Promise.reject(e);
         }
       },
 
@@ -148,15 +153,17 @@ export default function modelFactory({
             type: 'saveDetail',
             payload: data.data,
           });
+          return data;
         }
         catch (e) {
-          // do nothind
+          return Promise.reject(e);
         }
       },
 
       *reload(action, { put, select }) {
         const page = yield select(state => state[modelName].page);
-        yield put({ type: 'list', payload: { page } });
+        const data = yield put({ type: 'list', payload: { page } });
+        return data;
       },
 
       // 存储 index 的搜索状态的。
@@ -169,6 +176,7 @@ export default function modelFactory({
             query,
           },
         });
+        return true;
       },
 
       *summary({ payload: { filters = '', query = '', id = '' } }, { call, put }) {
@@ -180,9 +188,10 @@ export default function modelFactory({
               data: data.data,
             },
           });
+          return data;
         }
         catch (e) {
-          // do nothing
+          return Promise.reject(e);
         }
       },
 
@@ -195,9 +204,10 @@ export default function modelFactory({
               data: data.data,
             },
           });
+          return data;
         }
         catch (e) {
-          // do nothing
+          return Promise.reject(e);
         }
       },
 
@@ -209,6 +219,7 @@ export default function modelFactory({
             ...newState,
           },
         });
+        return newState;
       },
 
     },
