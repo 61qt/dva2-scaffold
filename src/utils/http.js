@@ -1,21 +1,26 @@
-import jQuery from 'jquery';
+import axios from 'axios';
+import User from '../utils/user';
 
-const http = jQuery.ajax;
-http.get = jQuery.get;
-http.post = jQuery.post;
-http.put = (url, values, options = {}) => {
-  return jQuery.ajax(url, {
-    method: 'PUT',
-    data: values,
-    ...options,
-  });
-};
-http.delete = (url, values, options = {}) => {
-  return jQuery.ajax(url, {
-    method: 'DELETE',
-    data: values,
-    ...options,
-  });
-};
+const http = axios.create({
+  baseURL: 'https://api.example.com/',
+  timeout: 10000,
+  headers: {
+    'X-Custom-Header': 'foobar',
+  },
+});
+
+// Add a request interceptor
+http.interceptors.request.use((config) => {
+  if (User.token) {
+    Object.assign(config.header, {
+      Authorization: `Bearer ${User.token}`,
+    });
+  }
+  return config;
+}, (error) => {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
 
 export default http;

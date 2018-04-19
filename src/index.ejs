@@ -14,8 +14,10 @@
     <!-- loading 及浏览器支持判断 -->
     <style>@keyframes browser-tip {0% {opacity: 0; z-index: -1; } 10% {opacity: 0; z-index: 999999; } 50% {opacity: 1; z-index: 999999; } 90% {opacity: 1; z-index: 999999; } 100% {opacity: 0; z-index: -1; } } .browser-tip {width: 100%; line-height: 40px; height: 40px; background: #129fdd; position: fixed; top: 0; left: 0; z-index: 99; text-align: center; font-size: 14px; display: none; opacity: 1; z-index: -1; animation: browser-tip 15s ease-in infinite; color: #fff; } .browser-tip a {color: #fff; font-size: 28px; text-decoration: underline; }</style>
     <div id="browser-tip" class="browser-tip">为获取更好的用户体验，建议使用最新版本 <a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌浏览器</a> 进行浏览。</div> <div class="app-loading-tip" id="app-loading-tip"> <div class="sk-wave app-loading-wave"> <div class="app-loading-rect sk-rect sk-rect1"></div> <div class="app-loading-rect sk-rect sk-rect2"></div> <div class="app-loading-rect sk-rect sk-rect3"></div> <div class="app-loading-rect sk-rect sk-rect4"></div> <div class="app-loading-rect sk-rect sk-rect5"></div> </div> <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统正在初始化，请等待...</div> </div>
+
     <script src="//cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
     <script src="//cdn.bootcss.com/lodash.js/4.17.5/lodash.min.js"></script>
+    <script src="//cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
     <script src="//cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
     <script src="//cdn.bootcss.com/moment.js/2.22.1/locale/zh-cn.js"></script>
     <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>

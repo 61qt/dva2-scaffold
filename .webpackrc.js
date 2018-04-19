@@ -30,6 +30,7 @@ let config = {
     react: 'React',
     'react-dom': 'ReactDOM',
     antd: 'antd',
+    axios: 'axios',
     moment: 'moment',
   },
   extraPostCSSPlugins: [
