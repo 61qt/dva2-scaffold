@@ -1,5 +1,6 @@
 const models = [
   require('./all_resource').default,
+  require('./breadcrumb').default,
   require('./foreign_select').default,
   require('./menu_config').default,
   require('./student').default,
