@@ -5,6 +5,10 @@ import jQuery from 'jquery';
 import './index.less';
 
 class Component extends React.Component {
+  static defaultProps = {
+    scrollWarpper: '.ant-layout',
+    autoFixed: true,
+  }
   constructor(props) {
     super(props);
     this.state = {};
@@ -160,10 +164,5 @@ class Component extends React.Component {
     </div>);
   }
 }
-
-Component.defaultProps = {
-  scrollWarpper: '.ant-layout',
-  autoFixed: true,
-};
 
 export default Component;
