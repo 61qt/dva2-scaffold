@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { message, Spin, Form, Input, Icon, Button } from 'antd';
-import { Link } from 'dva/router';
+import { NavLink } from 'dva/router';
 import styles from './index.less';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
@@ -90,7 +90,7 @@ class Component extends React.Component {
               </Form.Item>
             </Form>
             <div className={styles.forgetLine}>
-              <Link to={`${match.path.replace(/\/$/, '')}/forget`}>忘记密码</Link>
+              <NavLink to={`${match.path.replace(/\/$/, '')}/forget`}>忘记密码</NavLink>
             </div>
           </div>
         </Spin>
