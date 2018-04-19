@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { Modal, version, Layout, Icon, Tooltip } from 'antd';
+import { Modal, Breadcrumb, version, Layout, Icon, Tooltip } from 'antd';
 import React from 'react';
 import $ from 'jquery';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { Link, NavLink } from 'dva/router';
 import Header from './header';
 import AppMenu from './menu';
 import styles from './index.less';
@@ -36,17 +36,28 @@ class Component extends React.Component {
   }
 
   getRightLayout = () => {
-    const { breadcrumb, children } = this.props;
-    // const pathname = _.get(this, 'props.location.pathname') || '';
-    const isHome = false; // -1 < ['/app/', '/app'].indexOf(pathname);
+    const pathname = _.get(window, 'location.pathname') || '';
+    const isHome = -1 < ['/app/', '/app'].indexOf(pathname);
+    const breadcrumbCurrent = _.get(this, 'props.breadcrumb.current') || [];
     return (
       <Layout className={`rightLayout ${styles.rightLayout}`}>
         <div className={`${styles.breadcrumbContainer} ${isHome ? 'ant-hide' : ''}`}>
-          { breadcrumb }
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <NavLink to="/app" activeClassName="link-active">首页</NavLink>
+            </Breadcrumb.Item>
+            {
+              _.map(breadcrumbCurrent || [], (elem) => {
+                return (<Breadcrumb.Item key={elem.url}>
+                  <NavLink to={`/app/${elem.url.replace(/^\/+/, '').replace(/\/+$/, '')}`} activeClassName="link-active">{elem.name}</NavLink>
+                </Breadcrumb.Item>);
+              })
+            }
+          </Breadcrumb>
         </div>
         <Layout.Content className={styles.content}>
           <div className={styles.main}>
-            { children }
+            { this.props.children }
           </div>
         </Layout.Content>
       </Layout>
@@ -184,8 +195,10 @@ class Component extends React.Component {
     );
   }
 }
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    breadcrumb: state.breadcrumb,
+  };
 }
 
 export default connect(mapStateToProps)(Component);
