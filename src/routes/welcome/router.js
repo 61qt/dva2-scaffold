@@ -8,10 +8,12 @@ const routeArr = [];
 /* eslint-disable import/first, import/newline-after-import */
 routeArr.push({
   path: 'forget',
+  extra: true,
   component: require('../../components_welcome/forget').default,
 });
 routeArr.push({
   path: 'auto',
+  extra: true,
   component: require('../../components_welcome/login_auto').default,
 });
 routeArr.push({

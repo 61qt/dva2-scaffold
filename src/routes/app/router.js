@@ -18,9 +18,9 @@ routeArr.push({
 
 routeArr.push({
   path: '',
+  extra: true,
   component: require('../../components_app/home').default,
 });
-
 /* eslint-enable */
 
 class Component extends React.Component {
