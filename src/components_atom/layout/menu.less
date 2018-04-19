@@ -1,0 +1,107 @@
+.normal {
+
+}
+
+:global {
+  .menuFirstInit {
+    .ant-menu-submenu.ant-menu-submenu-popup.ant-menu-dark.ant-menu-submenu-placement-rightTop {
+      .ant-menu.ant-menu-sub.ant-menu-vertical {
+        display: none;
+      }
+    }
+  }
+  .ant-layout-sider-trigger {
+    font-size: 24px;
+    width: 200px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .ant-layout-sider-collapsed {
+    .ant-layout-sider-trigger {
+      font-size: 20px;
+      width: 50px;
+    }
+    li.ant-menu-submenu, li.ant-menu-item {
+      text-align: center;
+      .anticon {
+        margin-right: 0;
+      }
+      .ant-menu-submenu-title {
+        padding-left: 0;
+        padding-right: 0;
+        &:after {
+          position: absolute;
+          right: 2px;
+        }
+        &:hover:after {
+          content: '';
+          display: none;
+        }
+      }
+    }
+    .ant-menu-item-selected, .ant-menu-submenu-selected {
+      background-color: transparent!important;
+      .ant-menu-submenu-title {
+        color: #49a9ee;
+      }
+      &, > a {
+        color: #49a9ee;
+      }
+    }
+    .ant-menu-submenu {
+      &-active {
+        > .ant-menu-sub {
+          display: block!important;
+        }
+      }
+    }
+
+    .ant-menu-sub {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0px;
+      margin-left: 4px;
+      border-radius: 4px;
+      z-index: 1;
+      padding: 10px;
+      min-width: 90px;
+      .ant-menu-item {
+        padding-left: 0!important;
+      }
+      .ant-menu-item-selected {
+        background-color: transparent!important;
+        &, a {
+          color: #49a9ee;
+        }
+      }
+    }
+
+    .ant-menu-submenu, .ant-menu-item {
+      padding: 0;
+      text-align: center;
+      .anticon {
+        font-size: 20px;
+        line-height: 40px;
+        ~span {
+          display: none;
+        }
+      }
+    }
+  }
+
+  ul.ant-menu-vertical {
+    &, &.ant-menu-inline-collapsed {
+      >.ant-menu-item,
+      >.ant-menu-submenu>.ant-menu-submenu-title,
+      >.ant-menu-item,
+      >.ant-menu-submenu>.ant-menu-submenu-title {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}

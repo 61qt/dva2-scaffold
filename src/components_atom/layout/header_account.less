@@ -1,0 +1,53 @@
+.normal {
+  display: inline-block;
+}
+
+:global {
+  @media (max-width: 600px) {
+    .header-account-role {
+      display: none;
+    }
+  }
+}
+
+img.accountImg {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ffffff;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 8px;
+}
+
+.headerDownIcon {
+  :global {
+    i.anticon {
+      font-size: 14px!important;
+      margin: 0;
+      transform: none;
+      padding-left: 4px;
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+.accountName {
+
+}
+
+.accountDownMenu {
+  border-radius: 0;
+  border: 1px solid #f4f4f4;
+  position: relative;
+  top: 3px;
+  :global {
+    .ant-dropdown-menu-item {
+      border-radius: 0;
+      padding: 4px 20px 4px;
+      .anticon {
+        margin-right: 16px;
+      }
+    }
+  }
+}
