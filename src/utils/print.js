@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import jQuery from 'jquery';
 import formErrorMessageShow from './form_error_message_show';
 
 // 新窗口，css 写在这。不能写行内。
 const printStyle = `
-<style>
+<style data-type="print">
   body {
     border: 0;
     margin: 0;
@@ -133,6 +134,9 @@ const printStyle = `
 export {
   printStyle,
 };
+
+const printStyleDom = jQuery(printStyle);
+jQuery('head').prepend(printStyleDom);
 
 export default function ({ data }) {
   try {
