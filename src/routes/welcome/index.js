@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
-import { Switch, Route } from 'dva/router';
-
 
 import styles from './index.less';
 import CONSTANTS from '../../constants';
 import { modelReset } from '../../models';
-import Login from '../../components_welcome/login';
-import Forget from '../../components_welcome/forget';
-import LoginAuto from '../../components_welcome/login_auto';
+import Router from './router';
 
 class Component extends React.Component {
   constructor(props) {
@@ -28,7 +24,6 @@ class Component extends React.Component {
   }
 
   render() {
-    const { match } = this.props;
     return (
       <div className={styles.normal}>
         <div className={styles.header}>
@@ -40,14 +35,10 @@ class Component extends React.Component {
           </div>
         </div>
 
-        <Switch>
-          <Route path={`${match.path}/auto`} component={LoginAuto} />
-          <Route path={`${match.path}/forget`} component={Forget} />
-          <Route path={`${match.path}/`} component={Login} />
-        </Switch>
+        <Router {...this.props} />
 
         <p className={styles.copyright}>
-          Copyright © { moment().format('YYYY') } <a href="http://www.example.cn" target="_blank" rel="noopener noreferrer">61qt.cn</a> • <a href="http://www.example.cn" target="_blank" rel="noopener noreferrer">XX网</a>
+          Copyright © { moment().format('YYYY') } <a href="http://www.example.cn" target="_blank" rel="noopener noreferrer">XX网</a> • <a href="http://www.example.cn" target="_blank" rel="noopener noreferrer">XX网</a>
         </p>
       </div>
     );
