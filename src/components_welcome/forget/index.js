@@ -1,6 +1,6 @@
 import React from 'react';
 import { message, Spin, Form, Input, Icon, Button } from 'antd';
-import { Link } from 'dva/router';
+import { NavLink, Link } from 'dva/router';
 import styles from './index.less';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
@@ -114,7 +114,7 @@ class Component extends React.Component {
               </Form.Item>
             </Form>
             <div className={styles.forgetLine}>
-              <Link to={`${this.props.match.path.replace(/\/?forget\/?/, '')}`}>直接登录</Link>
+              <NavLink to={`${this.props.match.path.replace(/\/?forget\/?/, '')}`}>直接登录</NavLink>
             </div>
           </div>
         </Spin>
