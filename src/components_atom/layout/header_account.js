@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
+// import _ from 'lodash';
+import { NavLink } from 'dva/router';
 import { notification, Menu, Dropdown, Icon, Badge } from 'antd';
 import styles from './header_account.less';
 import CONSTANTS from '../../constants';
@@ -60,8 +61,8 @@ class Component extends React.Component {
   }
 
   render() {
-    const { userInfo, unreadCount } = this.props;
-    if (!userInfo) {
+    const { unreadCount } = this.props;
+    if (!User.info) {
       return (<div>请先登录</div>);
     }
 
@@ -69,35 +70,35 @@ class Component extends React.Component {
       <Menu selectedKeys={[]} defaultSelectedKeys={[]} onClick={this.handleMenuClick} className={styles.accountDownMenu}>
         <Menu.Item key="account_1">
           <div>
-            <Link to="/app/sys_message">
+            <NavLink to="/app/sys_message">
               <Icon type="message" />
               <span>我的消息</span>
               <Badge count={unreadCount} />
-            </Link>
+            </NavLink>
           </div>
         </Menu.Item>
         <Menu.Item key="account_2">
           <div>
-            <Link to="/app/password/edit">
+            <NavLink to="/app/password/edit">
               <Icon type="edit" />
               <span>修改密码</span>
-            </Link>
+            </NavLink>
           </div>
         </Menu.Item>
         <Menu.Item key="detect">
           <div>
-            <Link to="/app/detect">
+            <NavLink to="/app/detect">
               <Icon type="dashboard" />
               <span>系统检测</span>
-            </Link>
+            </NavLink>
           </div>
         </Menu.Item>
         <Menu.Item key="logout">
           <div>
-            <Link>
+            <NavLink to="#">
               <Icon type="logout" />
               <span>退出登录</span>
-            </Link>
+            </NavLink>
           </div>
         </Menu.Item>
       </Menu>
@@ -114,12 +115,12 @@ class Component extends React.Component {
           visible={this.state.visible}
         >
           <div className="text-white">
-            <img className={`img-1-1-40 ${styles.accountImg}`} src={Filters.qiniuImage(userInfo.avatar, { width: 80, height: 80 })} alt={userInfo.name} />
+            <img className={`img-1-1-40 ${styles.accountImg}`} src={Filters.qiniuImage(User.info.avatar, { width: 80, height: 80 })} alt={User.info.name} />
             <span className={styles.accountName}>
-              <span className={768 > window.innerWidth ? 'ant-hide' : ''}>{userInfo.name}</span>
+              <span className={768 > window.innerWidth ? 'ant-hide' : ''}>{User.info.name}</span>
               <span className="header-account-role">
                 &nbsp;&nbsp;
-                { userInfo.role_name }
+                { User.info.role_name }
               </span>
             </span>
             { this.state.visible ? null : <Badge count={unreadCount} /> }
@@ -133,7 +134,6 @@ class Component extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.user.info,
     unreadCount: state.sys_message.unreadCount,
   };
 }
