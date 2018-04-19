@@ -134,32 +134,31 @@ function fetch({ value, query, url, props, force = false, dispatch }, callback, 
         urlRequest = `${urlRequest}?${select}`;
       }
     }
-    http.get(urlRequest)
-      .then((response) => {
-        const data = response.data.data;
-        const searchList = [];
-        data.forEach((elem) => {
-          // 获取 elem 的 value 和 text 的 存储 index 。
-          searchList.push({
-            ...elem,
-            value: elem[options.valueName],
-            text: elem[options.textName],
-          });
-        });
-        // 是否连接并去重。
-        if (false === props.append) {
-          optionsCache[key] = [];
-        }
-        else {
-          optionsCache[key] = optionsCache[key] || [];
-        }
-        optionsCache[key] = _.uniqBy(_.orderBy([].concat(searchList).concat(optionsCache[key]), 'value', 'desc'), 'value');
-        callback(optionsCache[key]);
-        dispatch({
-          type: 'foreign_select/info',
-          payload: optionsCache,
+    http.get(urlRequest).then((response) => {
+      const data = response.data.data;
+      const searchList = [];
+      data.forEach((elem) => {
+        // 获取 elem 的 value 和 text 的 存储 index 。
+        searchList.push({
+          ...elem,
+          value: elem[options.valueName],
+          text: elem[options.textName],
         });
       });
+      // 是否连接并去重。
+      if (false === props.append) {
+        optionsCache[key] = [];
+      }
+      else {
+        optionsCache[key] = optionsCache[key] || [];
+      }
+      optionsCache[key] = _.uniqBy(_.orderBy([].concat(searchList).concat(optionsCache[key]), 'value', 'desc'), 'value');
+      callback(optionsCache[key]);
+      dispatch({
+        type: 'foreign_select/info',
+        payload: optionsCache,
+      });
+    });
   }
 
   timeout[timeoutSaveKey] = setTimeout(fake, 300);
