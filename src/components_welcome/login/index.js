@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { message, Spin, Form, Input, Icon, Button } from 'antd';
 import { Link } from 'dva/router';
 import styles from './index.less';
@@ -43,16 +44,17 @@ class Component extends React.Component {
     const formData = {
       ...values,
     };
-    Services.common.login(formData).then(({ data = {} }) => {
+    Services.common.login(formData).then((res) => {
       // document.cookie = 'isLogout=false;path=/';
-      window.console.log('data', data);
+      const data = _.get(res, 'data.data') || {};
       User.token = data.token;
-      User.info = data.info;
+      User.info = data.user;
 
       message.success('登录成功');
       this.setState({
         submitting: false,
       });
+      this.props.history.replace('/app');
     }).catch((rej) => {
       formErrorMessageShow(rej);
       this.setState({
