@@ -8,8 +8,10 @@ import formErrorMessageShow from '../../utils/form_error_message_show';
 
 import Services from '../../services';
 import User from '../../utils/user';
-import Layout from '../../components_atom/layout/index';
+import Layout from '../../components_atom/layout';
 import { undershoot as sentryUndershoot } from '../../utils/dva-sentry';
+import styles from './index.less';
+import Router from './router';
 
 let prolongingInterval = '';
 class Component extends React.Component {
@@ -48,8 +50,6 @@ class Component extends React.Component {
   getAuthedComp() {
     const props = this.props;
     const {
-      children,
-      content,
       breadcrumb,
     } = this.props;
     return (<Layout
@@ -57,9 +57,8 @@ class Component extends React.Component {
       user={props.user}
       location={props.location}
       history={props.history}
-      content={content}
-      breadcrumb={breadcrumb} >
-      { children }
+      breadcrumb={breadcrumb}>
+      <Router {...this.props} />
     </Layout>);
   }
 
@@ -170,20 +169,25 @@ class Component extends React.Component {
   }
 
   render() {
-    // const ChildComponent = this.getAuthedComp();
     const render = () => {
       // const render = (...args) => {
       // window.console.log('app index render args', args);
       if (this.state.pending) {
-        return (<div>Loading...</div>);
+        let loadingHtml = '加载中';
+        // eslint-disable-next-line no-underscore-dangle
+        if ('string' === typeof window.____loadingHtml) {
+          // eslint-disable-next-line no-underscore-dangle
+          loadingHtml = window.____loadingHtml;
+        }
+        const loadingHtmlProps = {
+          dangerouslySetInnerHTML: { __html: loadingHtml },
+        };
+        return (<div className={styles.normal}>
+          <div {...loadingHtmlProps} />
+        </div>);
       }
 
-      return this.state.logged ? (<div>
-        <div>授权成功的。</div>
-        {
-          // <ChildComponent {...this.props} />
-        }
-      </div>) : (<div>
+      return this.state.logged ? this.getAuthedComp() : (<div>
         <div>授权失败的。</div>
         <Redirect to="/welcome" />
       </div>);
