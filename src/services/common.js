@@ -24,4 +24,8 @@ Service.ticketLogin = (ticket) => {
   });
 };
 
+Service.allResources = () => {
+  return http.get('/all_resources');
+};
+
 export default Service;

@@ -2,7 +2,7 @@ import axios from 'axios';
 import User from '../utils/user';
 
 const http = axios.create({
-  baseURL: 'https://zhsng-sng-api.61qt.cn/',
+  baseURL: 'https://api.example.cn/',
 });
 
 // Add a request interceptor
@@ -18,5 +18,13 @@ http.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+// Add a response interceptor
+http.interceptors.response.use((response) => {
+  // Do something with response data
+  return response.data;
+}, (error) => {
+  // Do something with response error
+  return Promise.reject(error);
+});
 
 export default http;

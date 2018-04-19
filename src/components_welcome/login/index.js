@@ -46,7 +46,7 @@ class Component extends React.Component {
     };
     Services.common.login(formData).then((res) => {
       // document.cookie = 'isLogout=false;path=/';
-      const data = _.get(res, 'data.data') || {};
+      const data = _.get(res, 'data') || {};
       User.token = data.token;
       User.info = data.user;
 
