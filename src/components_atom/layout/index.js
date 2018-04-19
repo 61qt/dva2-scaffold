@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { locales, LocaleProvider, Modal, version, Layout, Icon, Tooltip } from 'antd';
+import { Modal, version, Layout, Icon, Tooltip } from 'antd';
 import React from 'react';
 import $ from 'jquery';
 import { connect } from 'dva';
@@ -7,12 +7,8 @@ import { Link } from 'dva/router';
 import Header from './header';
 import AppMenu from './menu';
 import styles from './index.less';
-import { printStyle } from '../../utils/print';
 import User from '../../utils/user';
 import CONSTANTS from '../../constants';
-
-
-const zhCN = _.get(locales, 'zh_CN');
 
 class Component extends React.Component {
   constructor(props) {
@@ -40,43 +36,27 @@ class Component extends React.Component {
   }
 
   getRightLayout = () => {
-    const { breadcrumb, content, children } = this.props;
-    const pathname = _.get(this, 'props.location.pathname') || '';
-    const isHome = -1 < ['/app/', '/app'].indexOf(pathname);
-    if (children) {
-      return (
-        <Layout className={`rightLayout ${styles.rightLayout}`}>
-          <div className={`${styles.breadcrumbContainer} ${isHome ? 'ant-hide' : ''}`}>
-            { breadcrumb }
+    const { breadcrumb, children } = this.props;
+    // const pathname = _.get(this, 'props.location.pathname') || '';
+    const isHome = false; // -1 < ['/app/', '/app'].indexOf(pathname);
+    return (
+      <Layout className={`rightLayout ${styles.rightLayout}`}>
+        <div className={`${styles.breadcrumbContainer} ${isHome ? 'ant-hide' : ''}`}>
+          { breadcrumb }
+        </div>
+        <Layout.Content className={styles.content}>
+          <div className={styles.main}>
+            { children }
           </div>
-          <Layout.Content className={styles.content}>
-            <div className={styles.main}>
-              { children }
-            </div>
-          </Layout.Content>
-        </Layout>
-      );
-    }
-    else {
-      return (
-        <Layout className={`rightLayout ${styles.rightLayout}`}>
-          <div className={`${styles.breadcrumbContainer} ${isHome ? 'ant-hide' : ''}`}>
-            { breadcrumb }
-          </div>
-          <Layout.Content className={styles.content}>
-            <div className={styles.main}>
-              { content }
-            </div>
-          </Layout.Content>
-        </Layout>
-      );
-    }
+        </Layout.Content>
+      </Layout>
+    );
   }
 
   getTrigger = () => {
     return (<Tooltip mouseEnterDelay={3} mouseLeaveDelay={0} overlayClassName="cyan-tooltip" placement="top" title={`${this.state.collapsed ? '展开' : '收起'}菜单`}>
       <div className={styles.collapseTrigger}>
-        <Link>
+        <Link to="#">
           { this.state.collapsed ? (<Icon type="menu-unfold" />) : (<Icon type="menu-fold" />) }
         </Link>
       </div>
@@ -158,9 +138,6 @@ class Component extends React.Component {
   render() {
     const { location, history } = this.props;
     const RightLayout = this.getRightLayout();
-    const printStyleProps = {
-      dangerouslySetInnerHTML: { __html: printStyle },
-    };
 
     const layoutStyle = {};
     if (this.state.collapsed) {
@@ -177,11 +154,10 @@ class Component extends React.Component {
       `;
     }
 
-    const key = `${this.state.campusId}_${this.state.tokenId}`;
-    const mainLayout = (
+    const key = `${User.id}`;
+    return (
       <Layout key={key} data-key={key} onClick={this.handleGlobalClick} className={styles.layout} data-antd-version={version} style={layoutStyle}>
         <style>{globalStyle}</style>
-        <div {...printStyleProps} />
         <Layout>
           <Layout.Sider collapsedWidth="50" breakpoint="md" bak-breakpoint="xl" width={200} className={styles.sider} collapsed={this.state.collapsed} collapsible onCollapse={this.handleCollapse} trigger={this.getTrigger()}>
             <div className={`mainLayoutHeaderLogoContainer ${styles.headerLogoContainer} clearfix`}>
@@ -206,8 +182,6 @@ class Component extends React.Component {
         </Layout>
       </Layout>
     );
-
-    return (<LocaleProvider locale={zhCN}>{ mainLayout }</LocaleProvider>);
   }
 }
 function mapStateToProps() {
