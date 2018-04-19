@@ -56,7 +56,7 @@ class Component extends React.Component {
         description: '你已经成功退出登录',
         duration: CONSTANTS.NOTIFICATION_DURATION,
       });
-      window.location.href = '/app_login';
+      window.location.href = '/welcome';
     }
   }
 
