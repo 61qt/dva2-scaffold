@@ -11,9 +11,10 @@ import 'blueimp-canvas-to-blob';
 import CONSTANTS, { DICT } from './constants';
 import Filters from './filters';
 import http from './utils/http';
+import User from './utils/user';
 import * as Service from './services';
 import models from './models';
-// import formErrorMessageShow from './utils/form_error_message_show';
+import formErrorMessageShow from './utils/form_error_message_show';
 // import './utils/hotjar';
 
 import './index.less';
@@ -63,7 +64,7 @@ window.CONSTANTS = CONSTANTS;
 // eslint-disable-next-line no-underscore-dangle
 window.Filters = Filters;
 // eslint-disable-next-line no-underscore-dangle
-// window.jwt = jwt;
+window.User = User;
 // eslint-disable-next-line no-underscore-dangle
 window.browserHistory = browserHistory;
 // eslint-disable-next-line no-underscore-dangle
@@ -71,7 +72,7 @@ window.React = React;
 // eslint-disable-next-line no-underscore-dangle
 window.Service = Service;
 // eslint-disable-next-line no-underscore-dangle
-// window.formErrorMessageShow = formErrorMessageShow;
+window.formErrorMessageShow = formErrorMessageShow;
 // eslint-disable-next-line no-underscore-dangle
 window.http = http;
 // eslint-disable-next-line no-underscore-dangle
