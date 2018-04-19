@@ -2,7 +2,7 @@ import _ from 'lodash';
 import jQuery from 'jquery';
 import { Menu, Icon } from 'antd';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { NavLink } from 'dva/router';
 import pluralize from 'pluralize';
 import { checkAuthIsShow } from '../../components_atom/access';
 import accessStyles from '../../components_atom/access/index.less';
@@ -191,7 +191,7 @@ class Component extends React.Component {
           }
           return (
             <Menu.Item className={`${childElemIsShow ? '' : accessStyles.accessHidden}`} key={childElem.key}>
-              <Link to={`/app/${childElem.url}`} className="" title={childElem.name}>{childElem.name}</Link>
+              <NavLink to={`/app/${childElem.url}`} className="" title={childElem.name}>{childElem.name}</NavLink>
             </Menu.Item>
           );
         });
@@ -204,7 +204,7 @@ class Component extends React.Component {
       }
       return (
         <Menu.Item key={elem.key} className={`${elemIsShow ? '' : accessStyles.accessHidden}`}>
-          <Link to={`/app/${elem.url}`} title={elem.name}><Icon type={elem.icon} /><span className="">{elem.name}</span></Link>
+          <NavLink to={`/app/${elem.url}`} title={elem.name}><Icon type={elem.icon} /><span className="">{elem.name}</span></NavLink>
         </Menu.Item>
       );
     });
