@@ -91,7 +91,7 @@ class Component extends React.Component {
       <tr key="expand" >
         <td style={this.buildLabelStyle()}>更多信息</td>
         <td onClick={this.props.toggleShowMore}>
-          <Link>
+          <Link to="#">
             { expandFlag ? '收起' : '展开' } <Icon type={expandFlag ? 'up' : 'down'} />
           </Link>
         </td>
