@@ -1,29 +1,38 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'dva';
 import { Switch, Route } from 'dva/router';
 
-const AppRouter = [];
+const routeArr = [];
 
 /* eslint-disable import/first, import/newline-after-import */
-import Forget from '../../components_welcome/forget';
-AppRouter.push(<Route key="/welcome/forget" path="/welcome/forget" component={Forget} />);
-
-import LoginAuto from '../../components_welcome/login_auto';
-AppRouter.push(<Route key="/welcome/auto" extra path="/welcome/auto" component={LoginAuto} />);
-
-import Login from '../../components_welcome/login';
-AppRouter.push(<Route key="/welcome" path="/welcome" component={Login} />);
+routeArr.push({
+  path: 'forget',
+  component: require('../../components_welcome/forget').default,
+});
+routeArr.push({
+  path: 'auto',
+  component: require('../../components_welcome/login_auto').default,
+});
+routeArr.push({
+  path: '',
+  component: require('../../components_welcome/login').default,
+});
 /* eslint-enable */
 
 class Component extends React.Component {
   constructor(props) {
     super(props);
-    debugAdd('app_router', this);
+    debugAdd('welcome_router', this);
   }
 
   render() {
     return (<Switch>
-      { AppRouter }
+      {
+        _.map(routeArr, (elem) => {
+          return (<Route key={elem.path} path={`/welcome/${elem.path}`} extra={elem.extra} component={elem.component} />);
+        })
+      }
     </Switch>);
   }
 }
