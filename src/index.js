@@ -12,7 +12,7 @@ import CONSTANTS, { DICT } from './constants';
 import Filters from './filters';
 import http from './utils/http';
 import User from './utils/user';
-import * as Service from './services';
+import Services from './services';
 import models from './models';
 import formErrorMessageShow from './utils/form_error_message_show';
 // import './utils/hotjar';
@@ -70,7 +70,7 @@ window.browserHistory = browserHistory;
 // eslint-disable-next-line no-underscore-dangle
 window.React = React;
 // eslint-disable-next-line no-underscore-dangle
-window.Service = Service;
+window.Services = Services;
 // eslint-disable-next-line no-underscore-dangle
 window.formErrorMessageShow = formErrorMessageShow;
 // eslint-disable-next-line no-underscore-dangle
