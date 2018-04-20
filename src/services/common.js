@@ -10,6 +10,17 @@ Service.loginToken = () => {
   return http.get('/login_token');
 };
 
+Service.qiniuToken = (values = {}, options = {}) => {
+  return http.get('/common/qiniu_token', values, options);
+};
+
+Service.qiniuUpload = (values, options = {}) => {
+  return http.post('https://up.qbox.me', values, {
+    skipAuthorization: true,
+    ...options,
+  });
+};
+
 Service.login = (values) => {
   // 登录，不需要带 token
   return http.post('/login', values, {
