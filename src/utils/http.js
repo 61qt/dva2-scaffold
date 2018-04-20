@@ -1,8 +1,11 @@
 import axios from 'axios';
 import User from '../utils/user';
+import CONSTANTS from '../constants';
 
 const http = axios.create({
   baseURL: 'https://api.example.cn/',
+  // eslint-disable-next-line no-dupe-keys
+  baseURL: CONSTANTS.API_BASE_URL,
 });
 
 // Add a request interceptor
