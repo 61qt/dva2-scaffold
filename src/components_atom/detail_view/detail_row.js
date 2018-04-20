@@ -37,42 +37,76 @@ class Component extends React.Component {
       return !rowIsRemov;
     });
 
-    // todo 解决 colSpan 问题。
-    const columns = [];
+    const tableColumns = [];
     let columnsIndex = 0;
     let rowColSum = 0;
-    const rowMaxCol = col * 2;
+    const eachRowMaxColSave = {};
+    _.each(showColumn, (elem, index) => {
+      eachRowMaxColSave[index] = col * 2;
+    });
+
+    // 计算每一列。
+    // let rowColSpanTotal = 0;
     _.each(showColumn, (elem) => {
-      columns[columnsIndex] = columns[columnsIndex] || [];
+      tableColumns[columnsIndex] = tableColumns[columnsIndex] || [];
       const colSpan = elem.colSpan || 1;
-      if (rowColSum + 1 + colSpan > rowMaxCol) {
+      let rowSpan = elem.rowSpan || 1;
+
+      // if (rowColSpanTotal + 1 + colSpan > eachRowMaxColSave[columnsIndex]) {
+      //   colSpan = eachRowMaxColSave[columnsIndex] - rowColSpanTotal - 1;
+      // }
+      if (colSpan + 1 >= col * 2) {
+        rowSpan = 1;
+      }
+      if (rowColSum + 1 + colSpan > eachRowMaxColSave[columnsIndex]) {
         columnsIndex += 1;
         rowColSum = 1 + colSpan;
+        // rowColSpanTotal = 0;
       }
       else {
         rowColSum += 1 + colSpan;
       }
-      columns[columnsIndex] = columns[columnsIndex] || [];
-      columns[columnsIndex].push(elem);
+      // rowColSpanTotal += colSpan + 1;
+      tableColumns[columnsIndex] = tableColumns[columnsIndex] || [];
+      tableColumns[columnsIndex].push({
+        ...elem,
+        colSpan,
+        rowSpan,
+      });
+      if (1 < rowSpan) {
+        do {
+          const rowIndex = columnsIndex + rowSpan - 1;
+          eachRowMaxColSave[rowIndex] -= 2 * colSpan;
+          rowSpan -= 1;
+        }
+        while (1 < rowSpan);
+      }
     });
+    if (this.props.console) {
+      window.console.clear();
+      window.console.log('tableColumns', tableColumns, 'eachRowMaxColSave', eachRowMaxColSave);
+    }
 
-    const expandColumn = _.filter(columns, (elem, index) => {
+    // 展开了的列
+    const expandColumn = _.filter(tableColumns, (elem, index) => {
       return index < this.props.currentExpand;
     });
+
+    // 渲染已经展开的列。
     return expandColumn.map((rowElem, rowIndex) => {
       const tdArr = [];
       let colSpanLength = 0;
       _.each(rowElem, (colElem) => {
-        const colSpan = colElem.colSpan || 1;
-        const rowSpan = colElem.rowSpan || 1;
-        colSpanLength += (colSpan + 1);
-        tdArr.push(<td rowSpan={rowSpan} key={`${rowIndex}_${colSpanLength}_1`} style={this.buildLabelStyle()}>{colElem.title}</td>);
-        tdArr.push(<td rowSpan={rowSpan} key={`${rowIndex}_${colSpanLength}_2`} colSpan={colSpan}>{this.getValue(colElem, dataSource)}</td>);
+        colSpanLength += (colElem.colSpan + 1);
+        tdArr.push(<td rowSpan={colElem.rowSpan} key={`${rowIndex}_${colSpanLength}_1`} style={this.buildLabelStyle()}>{colElem.title}</td>);
+        tdArr.push(<td rowSpan={colElem.rowSpan} key={`${rowIndex}_${colSpanLength}_2`} colSpan={colElem.colSpan}>{this.getValue(colElem, dataSource)}</td>);
       });
 
-      while (2 * col > colSpanLength) {
-        colSpanLength += 1;
-        tdArr.push(<td key={`${rowIndex}_${colSpanLength}`} />);
+      while (eachRowMaxColSave[rowIndex] > colSpanLength) {
+        // colSpanLength += 1;
+        // tdArr.push(<td key={`${rowIndex}_${colSpanLength}`} />);
+        colSpanLength += 2;
+        tdArr.push(<td className="detail-view-empty" colSpan="2" key={`${rowIndex}_${colSpanLength}`} />);
       }
       return (<tr key={rowIndex}>
         { tdArr }
@@ -97,7 +131,7 @@ class Component extends React.Component {
           </Link>
         </td>
         {
-          1 < col ? (<td colSpan={2 * (col - 1)} />) : null
+          1 < col ? (<td className="detail-view-empty" colSpan={2 * (col - 1)} />) : null
         }
       </tr>
     );

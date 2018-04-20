@@ -11,19 +11,18 @@ const columns = [
   {
     title: '头像',
     dataIndex: 'avatar',
-    // rowSpan: 4,
+    rowSpan: 2,
     render: (text, dataSource) => {
       return (<img className="img-1-1-80" src={Filters.qiniuImage(text, { width: 160, height: 160 })} alt={dataSource.name} />);
     },
   },
   {
-    title: '学生编号',
-    dataIndex: 'id',
-  },
-  {
     title: '姓名',
     dataIndex: 'name',
-    colSpan: 3,
+  },
+  {
+    title: '学生编号',
+    dataIndex: 'id',
   },
   {
     title: '出生日期',
@@ -49,16 +48,6 @@ const columns = [
   {
     title: '课程顾问',
     dataIndex: 'sng_admin.name',
-  },
-  {
-    title: '来源',
-    dataIndex: 'source',
-    render: (text) => {
-      if (undefined === text) {
-        return '';
-      }
-      return Filters.dict(['student', 'source'], text);
-    },
   },
   {
     title: '所在学校',
@@ -93,7 +82,16 @@ const columns = [
       return text || '';
     },
   },
-
+  {
+    title: '来源',
+    dataIndex: 'source',
+    render: (text) => {
+      if (undefined === text) {
+        return '';
+      }
+      return Filters.dict(['student', 'source'], text);
+    },
+  },
   {
     title: '身高',
     dataIndex: 'height',
@@ -137,6 +135,7 @@ const columns = [
   {
     title: '家庭住址',
     dataIndex: 'home_address',
+    colSpan: 3,
     render: (text) => {
       return text || '未填写';
     },
@@ -196,6 +195,7 @@ class Component extends React.Component {
     return (
       <div className={styles.normal}>
         <h2>{studentDetail.name || ''} - 学生信息详情</h2>
+
         <DetailView col={500 > window.innerWidth ? 1 : 2} labelWidth="10em" expand={4} data-comment-expand={13} loading={loading} dataSource={studentDetail} columns={columns} title={detailTitle} />
       </div>
     );
