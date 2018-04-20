@@ -56,7 +56,7 @@ class Component extends React.Component {
         title: '所属部门',
         dataIndex: 'department.name',
         key: 'department.name',
-        width: 198,
+        minWidth: 198,
       },
       {
         title: '性别',
