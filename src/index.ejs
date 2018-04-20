@@ -44,7 +44,13 @@
         if (-1 < ignoreMessage.indexOf(message)) {
           return false;
         }
-        else if (message && message.indexOf && message.indexOf('Unexpected ref object provided for img. Use either a ref-setter function or React.createRef')) {
+        else if (message && message.indexOf && -1 < message.indexOf('Unexpected ref object provided for img. Use either a ref-setter function or React.createRef')) {
+          return false;
+        }
+        else if (message && message.indexOf && -1 < message.indexOf('This content should also be served over HTTPS')) {
+          return false;
+        }
+        else if (message && message.indexOf && -1 < message.indexOf('will be deprecated soon!')) {
           return false;
         }
         __oldConsoleError(message);
