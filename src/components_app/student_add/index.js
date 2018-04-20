@@ -2,8 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'dva';
-import { message, Spin, Select, DatePicker, Radio, Button, Form, Col, Row, Icon } from 'antd';
-import Well from '../../components_atom/well';
+import { message, Spin, Select, DatePicker, Radio, Button, Form } from 'antd';
 import styles from './index.less';
 import Services from '../../services';
 import FormComponents from '../../components_form';
@@ -11,28 +10,7 @@ import Filters from '../../filters';
 import formErrorMessageShow from '../../utils/form_error_message_show';
 import buildColumnFormItem from '../../utils/build_column_form_item';
 import formatFormValue from '../../utils/format_form_value';
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
-
-const formTailItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24, offset: 0 },
-    sm: { span: 14, offset: 6 },
-  },
-};
+import DetailView from '../../components_atom/detail_view';
 
 class Component extends React.Component {
   constructor(props) {
@@ -56,6 +34,7 @@ class Component extends React.Component {
       {
         title: '学生头像',
         dataIndex: 'avatar',
+        rowSpan: 4,
         render: (defaultValue) => {
           const newOptions = {
             initValue: defaultValue,
@@ -108,6 +87,17 @@ class Component extends React.Component {
         }],
       },
       {
+        title: '学生手机',
+        dataIndex: 'phone',
+        inputNumberOptions: {
+          // className 带有 ant-input-number-row 代表长度为 100% 。
+          className: 'ant-input-number-row',
+          min: 13000000000,
+          max: 19999999999,
+        },
+        zeroEmptyFlag: true,
+      },
+      {
         title: '主要联系人姓名',
         dataIndex: 'primary_name',
         rules: [{
@@ -151,17 +141,6 @@ class Component extends React.Component {
         },
       },
       {
-        title: '学生手机',
-        dataIndex: 'phone',
-        inputNumberOptions: {
-          // className 带有 ant-input-number-row 代表长度为 100% 。
-          className: 'ant-input-number-row',
-          min: 13000000000,
-          max: 19999999999,
-        },
-        zeroEmptyFlag: true,
-      },
-      {
         title: '次要联系人姓名',
         dataIndex: 'secondary_name',
         rules: [{
@@ -198,6 +177,7 @@ class Component extends React.Component {
       {
         title: '家庭住址',
         dataIndex: 'home_address',
+        colSpan: 3,
       },
       {
         title: '邮箱地址',
@@ -207,7 +187,13 @@ class Component extends React.Component {
         title: '来源',
         dataIndex: 'source',
         render: () => {
-          return (<Radio.Group options={Filters.dict(['student', 'source'])} />);
+          return (<Select allowClear>
+            {
+              Filters.dict(['student', 'source']).map((elem) => {
+                return (<Select.Option key={elem.value} value={elem.value}>{elem.label}</Select.Option>);
+              })
+            }
+          </Select>);
         },
       },
       {
@@ -420,43 +406,37 @@ class Component extends React.Component {
       columns: this.columns,
       shouldInitialValue: this.editInfo.paramsId,
       defaultValueSet: this.state.dataSource,
-      formItemLayout,
+      formItemLayout: {},
       formValidate: this.state.formValidate,
       col: this.state.col,
+      warpCol: false,
+      label: false,
     });
 
-    const expand = this.state.expand;
-    const shownCount = 6;
+    window.children = children;
+
+    const renderTitle = (elem) => {
+      const isRequired = _.find(elem.rules, {
+        required: true,
+      });
+      return (<label htmlFor={elem.dataIndex} className={`${isRequired ? 'ant-form-item-required' : ''}`} title={elem.title}>{elem.title}</label>);
+    };
+
     return (
       <Spin spinning={this.state.submitting}>
         <Form
-          className={`app-edit-form ${expand ? '' : 'is-close'}`}
+          className="app-edit-form"
           onSubmit={this.handleSubmit}
         >
-          <Well title={`${this.editInfo.text}学生`}>
-            <Row gutter={40}>
-              {children.slice(0, shownCount)}
-            </Row>
-            <Row className={!expand ? 'ant-hide' : ''} gutter={40}>
-              {children.slice(shownCount)}
-            </Row>
-          </Well>
-          <Well holderplace>
-            <Row gutter={40}>
-              <Col span={this.state.col}>
-                <Form.Item {...formTailItemLayout}>
-                  <Button size="default" type="primary" htmlType="submit" disabled={this.state.submitting} loading={this.state.submitting}>保存</Button>
-                  <Button size="default" style={{ marginLeft: 8 }} onClick={this.handleReset}>
-                    重置
-                  </Button>
+          <DetailView titleClassName="text-align-right" className="small" col={500 > window.innerWidth ? 1 : 2} labelWidth="10em" expand={99999} dataSource={{}} columns={children} renderTitle={renderTitle} title={`${this.editInfo.text}学生`} />
 
-                  <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
-                    { expand ? '收起' : '展开' } <Icon type={expand ? 'up' : 'down'} />
-                  </a>
-                </Form.Item>
-              </Col>
-            </Row>
-          </Well>
+          <br />
+          <div>
+            <Button size="default" type="primary" htmlType="submit" disabled={this.state.submitting} loading={this.state.submitting}>保存</Button>
+            <Button size="default" style={{ marginLeft: 8 }} onClick={this.handleReset}>
+              重置
+            </Button>
+          </div>
         </Form>
       </Spin>
     );

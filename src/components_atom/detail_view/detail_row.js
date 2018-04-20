@@ -92,13 +92,17 @@ class Component extends React.Component {
       return index < this.props.currentExpand;
     });
 
+    const renderTitle = this.props.renderTitle || function renderTitle(elem) {
+      return elem.title;
+    };
+
     // 渲染已经展开的列。
     return expandColumn.map((rowElem, rowIndex) => {
       const tdArr = [];
       let colSpanLength = 0;
       _.each(rowElem, (colElem) => {
         colSpanLength += (colElem.colSpan + 1);
-        tdArr.push(<td rowSpan={colElem.rowSpan} key={`${rowIndex}_${colSpanLength}_1`} style={this.buildLabelStyle()}>{colElem.title}</td>);
+        tdArr.push(<td className={`${this.props.titleClassName || ''}`} rowSpan={colElem.rowSpan} key={`${rowIndex}_${colSpanLength}_1`} style={this.buildLabelStyle()}>{renderTitle(colElem)}</td>);
         tdArr.push(<td rowSpan={colElem.rowSpan} key={`${rowIndex}_${colSpanLength}_2`} colSpan={colElem.colSpan}>{this.getValue(colElem, dataSource)}</td>);
       });
 
@@ -160,7 +164,7 @@ class Component extends React.Component {
     const { title, col } = this.props;
     return (
       <div className={styles.normal}>
-        <div className="detail-view">
+        <div className={`detail-view ${this.props.className || ''}`}>
           <table>
             {
               title ? (<thead>

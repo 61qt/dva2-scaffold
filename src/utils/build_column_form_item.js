@@ -10,6 +10,7 @@ function buildColumnFormItem({
   formItemLayout,
   col = 24,
   warpCol = true,
+  label = true,
 }) {
   const children = [];
   columns.forEach((elem) => {
@@ -98,7 +99,7 @@ function buildColumnFormItem({
     const buildElemFormItemLayout = elemFormItemLayout || {
       ...formItemLayout,
     };
-    const formItem = (<Form.Item key={key || dataIndex} {...formItemOptions} {...buildElemFormItemLayout} label={elemTitle} {...elemValidate} className={rowIsHide ? 'ant-hide' : ''}>
+    const formItem = (<Form.Item key={key || dataIndex} {...formItemOptions} {...buildElemFormItemLayout} label={label ? elemTitle : ''} {...elemValidate} className={rowIsHide ? 'ant-hide' : ''}>
       { form.getFieldDecorator(dataIndex, options)(elemRender) }
     </Form.Item>);
     // 表单结构化。
@@ -110,7 +111,12 @@ function buildColumnFormItem({
       ));
     }
     else {
-      children.push(formItem);
+      children.push({
+        ...elem,
+        render: () => {
+          return formItem;
+        },
+      });
     }
   });
 
