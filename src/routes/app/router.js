@@ -23,6 +23,16 @@ routeArr.push({
 });
 
 routeArr.push({
+  path: 'student/:id/edit',
+  extra: true,
+  component: require('../../components_app/student_add').default,
+});
+routeArr.push({
+  path: 'student/add',
+  extra: true,
+  component: require('../../components_app/student_add').default,
+});
+routeArr.push({
   path: 'student',
   component: require('../../components_app/student').default,
 });
