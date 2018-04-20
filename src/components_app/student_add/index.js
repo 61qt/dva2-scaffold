@@ -413,8 +413,6 @@ class Component extends React.Component {
       label: false,
     });
 
-    window.children = children;
-
     const renderTitle = (elem) => {
       const isRequired = _.find(elem.rules, {
         required: true,
