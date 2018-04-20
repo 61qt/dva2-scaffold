@@ -53,7 +53,6 @@ export default class Component extends React.Component {
   qiniuTokenFunc = () => {
     return Services.common.qiniuToken().then((res) => {
       const token = res.data;
-      this.qiniuToken = token;
       return token;
     }).catch((rej) => {
       return Promise.reject(rej);
