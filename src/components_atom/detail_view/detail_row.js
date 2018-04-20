@@ -64,14 +64,15 @@ class Component extends React.Component {
       let colSpanLength = 0;
       _.each(rowElem, (colElem) => {
         const colSpan = colElem.colSpan || 1;
+        const rowSpan = colElem.rowSpan || 1;
         colSpanLength += (colSpan + 1);
-        tdArr.push(<td style={this.buildLabelStyle()}>{colElem.title}</td>);
-        tdArr.push(<td colSpan={colSpan}>{this.getValue(colElem, dataSource)}</td>);
+        tdArr.push(<td rowSpan={rowSpan} key={`${rowIndex}_${colSpanLength}_1`} style={this.buildLabelStyle()}>{colElem.title}</td>);
+        tdArr.push(<td rowSpan={rowSpan} key={`${rowIndex}_${colSpanLength}_2`} colSpan={colSpan}>{this.getValue(colElem, dataSource)}</td>);
       });
 
       while (2 * col > colSpanLength) {
         colSpanLength += 1;
-        tdArr.push(<td />);
+        tdArr.push(<td key={`${rowIndex}_${colSpanLength}`} />);
       }
       return (<tr key={rowIndex}>
         { tdArr }
