@@ -76,7 +76,7 @@ class Component extends React.Component {
         title: '最后更新时间',
         key: 'updated_at',
         dataIndex: 'updated_at',
-        width: 150,
+        minWidth: 150,
         render: (text) => {
           return Filters.datetime(text, { type: 'TIMESTAMP', format: 'YYYY-MM-DD HH:mm:ss' });
         },
