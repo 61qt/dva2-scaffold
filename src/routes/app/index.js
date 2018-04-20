@@ -40,6 +40,9 @@ class Component extends React.Component {
   componentDidMount = () => {
     const random = Math.random() * 10;
     prolongingInterval = window.setInterval(this.setLiving, (4 * 60 + random) * 1000);
+    this.props.dispatch({
+      type: 'area/init',
+    });
   }
 
   componentWillUnmount = () => {

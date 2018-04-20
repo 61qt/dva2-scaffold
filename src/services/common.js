@@ -21,6 +21,11 @@ Service.qiniuUpload = (values, options = {}) => {
   });
 };
 
+// 全部地区
+Service.allArea = () => {
+  return http.get('/common/all_area');
+};
+
 Service.login = (values) => {
   // 登录，不需要带 token
   return http.post('/login', values, {

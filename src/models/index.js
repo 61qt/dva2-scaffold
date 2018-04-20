@@ -1,4 +1,5 @@
 const models = [
+  require('./area').default,
   require('./all_resource').default,
   require('./breadcrumb').default,
   require('./foreign_select').default,
