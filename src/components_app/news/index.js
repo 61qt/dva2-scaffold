@@ -93,6 +93,15 @@ class Component extends React.Component {
   componentDidMount = () => {
     const { dispatch } = this.props;
     dispatch({
+      type: 'breadcrumb/current',
+      payload: [
+        {
+          name: '文章管理',
+          url: 'news',
+        },
+      ],
+    });
+    dispatch({
       type: 'post/listState',
       payload: { },
     });

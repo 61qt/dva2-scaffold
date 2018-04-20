@@ -12,7 +12,6 @@ class Component extends React.Component {
     super(props);
     debugAdd('news_add', this);
     const paramsId = _.get(props, 'match.params.id') || false;
-    this.paramsId = paramsId;
     this.editInfo = {
       paramsId,
       text: false === paramsId ? '新增' : '编辑',
@@ -24,15 +23,27 @@ class Component extends React.Component {
       dataSource: false,
     };
   }
+
   componentDidMount = () => {
-    const paramsId = this.paramsId;
+    const paramsId = this.editInfo.paramsId;
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'breadcrumb/current',
+      payload: [
+        {
+          name: '文章管理',
+          url: 'news',
+        },
+        {
+          name: `${paramsId ? '编辑' : '新增'}文章`,
+          url: paramsId ? `news/${paramsId}/edit` : 'news/add',
+        },
+      ],
+    });
+
     if (paramsId) {
       // 编辑状态
-      this.state = {
-        loading: true,
-        dataSource: false,
-      };
-      this.props.dispatch({
+      dispatch({
         type: 'post/detail',
         payload: { id: paramsId },
       }).then((res) => {
@@ -49,10 +60,10 @@ class Component extends React.Component {
     }
     else {
       // 新增状态
-      this.state = {
+      this.setState({
         loading: false,
         dataSource: {},
-      };
+      });
     }
   }
 
@@ -65,7 +76,7 @@ class Component extends React.Component {
       promise = Services.post.preview(formData);
     }
     else if ('update' === this.editInfo.method) {
-      promise = Services.post.update(this.paramsId, formData);
+      promise = Services.post.update(this.editInfo.paramsId, formData);
     }
     else {
       promise = Services.post.create(formData);
@@ -101,7 +112,7 @@ class Component extends React.Component {
     return (
       <div className={styles.normal}>
         <Spin spinning={this.state.loading}>
-          { !this.state.dataSource && this.state.loading ? <div>正在加载</div> : <AddForm {...this.props} loading={this.state.loading} editInfo={this.editInfo} handleSubmit={this.handleSubmit} defaultValue={this.state.dataSource} /> }
+          { this.state.dataSource && this.state.dataSource.id && !this.state.loading ? <AddForm {...this.props} loading={this.state.loading} editInfo={this.editInfo} handleSubmit={this.handleSubmit} defaultValue={this.state.dataSource} /> : <div>正在加载</div>}
         </Spin>
       </div>
     );
