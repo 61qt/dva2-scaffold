@@ -97,7 +97,7 @@ class Component extends React.Component {
         },
         className: 'html_content',
         render: (text) => {
-          return (<FormComponents.HtmlEditor className="html_content_editor" style={{ margin: '-1px' }} content={text} />);
+          return (<FormComponents.HtmlBraftEditor className="html_content_editor" content={text} />);
         },
       },
     ];
