@@ -44,6 +44,9 @@
         if (-1 < ignoreMessage.indexOf(message)) {
           return false;
         }
+        else if (message && message.indexOf && message.indexOf('Unexpected ref object provided for img. Use either a ref-setter function or React.createRef')) {
+          return false;
+        }
         __oldConsoleError(message);
       }
       var __oldConsoleWarn = window.console.warn.bind(console);

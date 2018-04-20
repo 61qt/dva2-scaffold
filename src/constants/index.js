@@ -7,6 +7,7 @@ const CONSTANTS = {
   PAGE_SIZE_MAX: 9999,
   API_URL_BASE: DEFINE_API_URL_BASE,
   QINIU_IMG_CDN_URL: 'https://static-cdn.qiniu.cn/',
+  API_BASE_URL: 'https://api.example.cn/',
   NOTIFICATION_DURATION: 10,
   QINIU_TOKEN: 'qiniu_token',
   AREA_KEY: 'AREA_CACHE_V1',
