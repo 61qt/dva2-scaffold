@@ -7,6 +7,22 @@ const routeArr = [];
 
 /* eslint-disable import/first, import/newline-after-import */
 routeArr.push({
+  path: 'news/:id/edit',
+  extra: true,
+  component: require('../../components_app/news_add').default,
+});
+routeArr.push({
+  path: 'news/add',
+  extra: true,
+  component: require('../../components_app/news_add').default,
+});
+routeArr.push({
+  path: 'news',
+  extra: true,
+  component: require('../../components_app/news').default,
+});
+
+routeArr.push({
   path: 'student',
   component: require('../../components_app/student').default,
 });
