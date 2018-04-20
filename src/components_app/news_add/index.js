@@ -19,13 +19,33 @@ class Component extends React.Component {
       method: false === paramsId ? 'create' : 'update',
     };
 
+    this.state = {
+      loading: true,
+      dataSource: false,
+    };
+  }
+  componentDidMount = () => {
+    const paramsId = this.paramsId;
     if (paramsId) {
       // 编辑状态
       this.state = {
         loading: true,
         dataSource: false,
       };
-      this.resolve();
+      this.props.dispatch({
+        type: 'post/detail',
+        payload: { id: paramsId },
+      }).then((res) => {
+        this.setState({
+          loading: false,
+          dataSource: res.data,
+        });
+      }).catch((rej) => {
+        message.error(rej.msg || '找不到该文章');
+        this.setState({
+          loading: false,
+        });
+      });
     }
     else {
       // 新增状态
@@ -34,22 +54,6 @@ class Component extends React.Component {
         dataSource: {},
       };
     }
-  }
-
-  resolve = () => {
-    Services.post.detail({
-      id: this.paramsId,
-    }).then((res) => {
-      this.setState({
-        loading: false,
-        dataSource: res.data,
-      });
-    }).catch((rej) => {
-      message.error(rej.msg || '找不到该文章');
-      this.setState({
-        loading: false,
-      });
-    });
   }
 
   handleSubmit = ({ values, preview, errorCallback, successCallback }) => {
