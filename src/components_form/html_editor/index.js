@@ -6,44 +6,13 @@ import Filters from '../../filters';
 export default class Component extends React.Component {
   constructor(props) {
     super(props);
+    this.value = props.value || '';
     this.state = {
-      value: '',
       responseList: [],
+      key: '',
     };
     debugAdd('html_editor', this);
-  }
-
-  // 更新传输的 value
-  componentWillReceiveProps = (nextProps) => {
-    if ('value' in nextProps) {
-      this.setState({
-        value: nextProps.value,
-      });
-    }
-  }
-
-  cbReceiver = (value) => {
-    // window.console.log('value', value);
-    this.setState({
-      value,
-    });
-
-    const onChange = this.props.onChange;
-    if ('function' === typeof onChange) {
-      onChange(value);
-    }
-  }
-
-  uploadToQiniu = (values) => {
-    return Services.common.qiniuUpload(values).then((res) => {
-      return Filters.qiniuImage(res.hash);
-    }).catch((rej) => {
-      return Promise.reject(rej);
-    });
-  }
-
-  render() {
-    const uploadProps = {
+    this.uploadProps = {
       action: 'https://up.qbox.me',
       listType: 'picture',
       fileList: this.state.responseList,
@@ -89,13 +58,56 @@ export default class Component extends React.Component {
         return file;
       },
     };
+  }
+
+  componentDidMount = () => {
+    this.newKey();
+  }
+
+  // 更新传输的 value
+  componentWillReceiveProps = (nextProps) => {
+    if ('value' in nextProps && nextProps.value !== this.props.value) {
+      this.value = nextProps.value || '';
+      this.newKey();
+    }
+  }
+
+  newKey = () => {
+    const key = `${new Date() * 1}_${Math.random()}`.replace('0.', '');
+    window.console.log('newKey', key);
+    this.setState({
+      key,
+    });
+  }
+
+  cbReceiver = (value) => {
+    this.value = value;
+
+    const onChange = this.props.onChange;
+    if ('function' === typeof onChange) {
+      onChange(value);
+    }
+  }
+
+  uploadToQiniu = (values) => {
+    return Services.common.qiniuUpload(values).then((res) => {
+      return Filters.qiniuImage(res.hash);
+    }).catch((rej) => {
+      return Promise.reject(rej);
+    });
+  }
+
+  render() {
     return (
-      <div className={styles.normal} >
+      <div className={styles.normal}>
         <LzEditor
-          active
+          key={this.state.key}
+          active={false}
+          video={false}
+          audio={false}
           lang="zh-CN"
-          uploadProps={uploadProps}
-          importContent={this.state.value}
+          uploadProps={this.uploadProps}
+          importContent={this.value}
           cbReceiver={this.cbReceiver} />
       </div>
     );
