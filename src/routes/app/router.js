@@ -43,6 +43,16 @@ routeArr.push({
 });
 
 routeArr.push({
+  path: 'teacher/:id/edit',
+  extra: true,
+  component: require('../../components_app/teacher_add').default,
+});
+routeArr.push({
+  path: 'teacher/add',
+  extra: true,
+  component: require('../../components_app/teacher_add').default,
+});
+routeArr.push({
   path: 'teacher',
   component: require('../../components_app/teacher').default,
 });
