@@ -17,7 +17,6 @@ class Component extends React.Component {
     this.state = {
       collapsed: true,
       modalVisible: false,
-      tokenId: User.id,
     };
 
     this.changeInnerWidth = _.debounce(this.changeInnerWidth, 200);
@@ -101,13 +100,6 @@ class Component extends React.Component {
 
   handleGlobalClick = (e) => {
     // 检测其他网页已经切换了用户
-    const tokenId = User.id;
-    if (tokenId && this.state.tokenId !== tokenId) {
-      this.setState({
-        tokenId,
-      });
-    }
-
     if (User.id && this.state.modalVisible) {
       this.setState({
         modalVisible: false,
