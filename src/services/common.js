@@ -33,6 +33,13 @@ Service.login = (values) => {
   });
 };
 
+Service.refreshToken = () => {
+  // 进行 token 的更新。不需要验证 token 是不是失效。
+  return http.post('/refresh_token', {}, {
+    skipExpireCheck: true,
+  });
+};
+
 Service.ticketLogin = (ticket) => {
   // ticket 登录，不需要带 token
   return http.get(`/token/${ticket}`, {}, {
