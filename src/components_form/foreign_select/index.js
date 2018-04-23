@@ -3,7 +3,7 @@ import jQuery from 'jquery';
 import { Select, Spin } from 'antd';
 import _ from 'lodash';
 import { connect } from 'dva';
-import http from '../../utils/http';
+import { http } from '../../services/_factory';
 
 const timeout = {};
 const currentValue = {};

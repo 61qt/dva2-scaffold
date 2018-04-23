@@ -10,7 +10,7 @@ import 'blueimp-canvas-to-blob';
 
 import CONSTANTS, { DICT } from './constants';
 import Filters from './filters';
-import http from './utils/http';
+import { http } from './services/_factory';
 import User from './utils/user';
 import FormComponents from './components_form';
 import Services from './services';
