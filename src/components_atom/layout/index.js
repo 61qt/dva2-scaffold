@@ -17,6 +17,8 @@ class Component extends React.Component {
     this.state = {
       collapsed: true,
       modalVisible: false,
+      innerWidth: window.innerWidth,
+      innerHeight: window.innerHeight,
     };
 
     this.changeInnerWidth = _.debounce(this.changeInnerWidth, 200);
@@ -74,7 +76,10 @@ class Component extends React.Component {
   }
 
   changeInnerWidth = () => {
-    this.setState({});
+    this.setState({
+      innerWidth: window.innerWidth,
+      innerHeight: window.innerHeight,
+    });
   }
 
   handleModelClose = () => {
@@ -171,7 +176,7 @@ class Component extends React.Component {
             <AppMenu collapsed={this.state.collapsed} location={location} history={history} />
           </Layout.Sider>
           <Layout>
-            <Header {...this.props} className="header" />
+            <Header {...this.props} {...this.state} className="header" />
             { RightLayout }
             <Modal title="错误提示" visible={this.state.modalVisible} onOk={this.handleModelOk} onCancel={this.handleModelClose} cancelText="关闭" okText="跳转至登陆页面">
               <div>
