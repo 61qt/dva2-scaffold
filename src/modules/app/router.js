@@ -13,7 +13,7 @@ function RouterConfig({ history }) {
     <Router history={history}>
       <Switch>
         <Route path="/app" component={App} />
-        <Redirect to="/welcome" />
+        <Redirect to="/app" />
       </Switch>
     </Router>
   </LocaleProvider>);
