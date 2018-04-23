@@ -33,9 +33,15 @@ git cline git@github.com:shenqihui/dva2-scaffold.git
 - node，自行测试，我的版本是 9.6.1
 
 ## 配置 nginx
-打开 nginx 文件夹，赋值 `nginx.conf.example` 为 `nginx.conf`，更改里面的 `${devRoot}` 为当前的仓库目录路径。
+配置里面的 ${devRoot} ， ${moduleName} ， ${modulePort}
 
-在 nginx 程序的配置(路径基本为`/usr/local/etc/nginx/nginx.conf`)上 include 这个文件。例如
+- ${devRoot} 为 项目根目录
+- ${moduleName} 为某个系统的模块名称，如目前的 [welcome, app, example] 三个模块
+- ${modulePort} 为开启指令之后的端口，开发时候有效。
+
+1、 打开 nginx 文件夹，复制 `nginx.conf.example` 为 `${moduleName}.conf`，更改上面的三个变量直接替换。
+
+2、 在 nginx 程序的配置(mac os 上的路径基本为`/usr/local/etc/nginx/nginx.conf`)上 include 这个文件。例如
 ```
 http{
   ...
@@ -43,10 +49,18 @@ http{
   ...
 }
 ```
+3、 重启 nginx
 
 ## 运行
-npm start
-本地绑定 host
+- yarn run startApp
+- yarn run startWelcome
+- yarn run startExample
+
+本地绑定 host (nginx 中定义的文件)
 然后打开 nginx 中对应的域名即可。
 
 注意：开发使用的是自签发的 ssl 证书，所以必须点击继续访问才能进行。
+
+## 发布
+yarn run release
+这个时候 `prod_` 开头的文件夹就是对应不同模块的打包文件。

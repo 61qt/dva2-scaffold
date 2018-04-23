@@ -10,6 +10,8 @@
 .DS_Store
 npm-debug.log*
 
-nginx/nginx.conf
+nginx/*.conf
 
 yarn-error.log
+
+prod_*/

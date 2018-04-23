@@ -3,6 +3,14 @@ const path = require('path');
 const git = require('git-rev-sync');
 const moment = require('moment');
 
+const buildModule = process.env.RELEASE_MODULE || 'app';
+const buildModules = ['app', 'welcome', 'example'];
+
+if (0 > buildModules.indexOf(buildModule)) {
+  console.log('传入 RELEASE_MODULE 出错，必须为', JSON.stringify(buildModules), ' 中的一个');
+  process.exit();
+}
+
 let releaseHash = '';
 try {
   releaseHash = git.long();
@@ -13,10 +21,11 @@ catch (e) {}
 //   path.resolve(__dirname, 'src/svg/'),
 // ];
 
-const publicPath = '你的 cdn 路径'; // '//cdn.example.cn/'
+const publicPath = './'; // 你的 cdn 路径'; // '//cdn.example.cn/'
 
 let config = {
-  entry: 'src/index.js',
+  entry: `./src/modules/${buildModule}/index.js`,
+  outputPath: `prod_${buildModule}`,
   disableCSSModules: false,
   // svgSpriteLoaderDirs: svgSpriteDirs,
   // sass: true,
