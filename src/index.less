@@ -3,3 +3,52 @@ html, body, :global(#root) {
 }
 
 @import "./global_styles/index";
+
+html, body, :global(#root), :global(#app-root) {
+  height: 100%;
+  font-size: 14px;
+}
+
+:global {
+  .ant-layout {
+    overflow: auto;
+  }
+  .mainLayoutMenuContainer .ant-menu-inline-collapsed {
+    width: 100%;
+  }
+  .ant-menu-submenu-inline>.ant-menu-submenu-title:after,
+  .ant-menu-submenu-vertical>.ant-menu-submenu-title:after,
+  .ant-menu-submenu-inline>.ant-menu-submenu-title .ant-menu-submenu-arrow,
+  .ant-menu-submenu-vertical>.ant-menu-submenu-title .ant-menu-submenu-arrow {
+    display: inline-block!important;
+    position: absolute;
+    right: 8px;
+  }
+}
+
+body {
+  overflow: hidden;
+}
+
+:global(#root), :global(#app-root) {
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #d9d9d9;
+}
+
+:global {
+  .sticky-table {
+    .ant-table-body-inner {
+      max-height: none!important;
+      overflow-y: auto!important;
+    }
+  }
+}
