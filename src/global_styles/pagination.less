@@ -1,4 +1,9 @@
 :global {
+  .ant-table-pagination-hide-last {
+    .ant-pagination-jump-next ~ .ant-pagination-item {
+      display: none;
+    }
+  }
   @media (max-width: 600px) {
     .ant-pagination {
       .ant-pagination-prev, .ant-pagination-next, .ant-pagination-item, .ant-pagination-options-quick-jumper {

@@ -196,11 +196,12 @@ class Component extends React.Component {
     return (
       <div className="clearfix">
         <Pagination
-          showQuickJumper
-          className="ant-table-pagination"
+          className="ant-table-pagination ant-table-pagination-hide-last"
           total={total}
           current={current}
           pageSize={pageSize}
+          showQuickJumper={false}
+          size="small"
           onChange={this.pageChangeHandler}
         />
       </div>
@@ -219,7 +220,8 @@ class Component extends React.Component {
         <br />
         <div>
           <Table
-            size={768 > window.innerWidth ? 'small' : 'default'}
+            data-bak-size={768 > window.innerWidth ? 'small' : 'default'}
+            size="small"
             bordered
             columns={this.columns}
             dataSource={dataSource}
