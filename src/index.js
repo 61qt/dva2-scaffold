@@ -12,6 +12,7 @@ import CONSTANTS, { DICT } from './constants';
 import Filters from './filters';
 import http from './utils/http';
 import User from './utils/user';
+import FormComponents from './components_form';
 import Services from './services';
 import models from './models';
 import formErrorMessageShow from './utils/form_error_message_show';
@@ -63,6 +64,8 @@ window.DICT = DICT;
 window.CONSTANTS = CONSTANTS;
 // eslint-disable-next-line no-underscore-dangle
 window.Filters = Filters;
+// eslint-disable-next-line no-underscore-dangle
+window.FormComponents = FormComponents;
 // eslint-disable-next-line no-underscore-dangle
 window.User = User;
 // eslint-disable-next-line no-underscore-dangle

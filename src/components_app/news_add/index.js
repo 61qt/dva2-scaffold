@@ -154,7 +154,9 @@ class Component extends React.Component {
       // 新增状态
       this.setState({
         loading: false,
-        dataSource: {},
+        dataSource: {
+          html_content: '',
+        },
       });
     }
   }
@@ -332,7 +334,11 @@ class Component extends React.Component {
             </Row>
           </Well>
           <Well title="文章内容" free>
-            { content }
+            {
+              content.map((elem) => {
+                return elem.render();
+              })
+            }
           </Well>
           <Well holderplace>
             <Row gutter={40}>
