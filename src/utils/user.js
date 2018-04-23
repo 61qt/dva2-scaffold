@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import moment from 'moment';
 
 const TokenName = 'jwtToken';
 const UserInfoName = 'userInfo';
@@ -140,6 +141,10 @@ export class UserService {
 
     const auth = this.decodeToken(token);
     return auth && 0 < auth.id;
+  }
+
+  getTokenOffset = ({ timestamps = moment().unix() }) => {
+    return (timestamps - moment().unix());
   }
 
   clean() {
