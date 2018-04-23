@@ -160,7 +160,7 @@ class Component extends React.Component {
     const key = `${window.innerWidth}`;
 
     return (<div key={key} data-key={key} ref={this.containerRef}>
-      <Table className={this.props.autoFixed && !this.isMobile ? 'sticky-table' : ''} {...this.props} scroll={scroll} />
+      <Table className={this.props.autoFixed && !this.isMobile ? 'sticky-table' : ''} {...this.props} data-bak-size={this.props.size || 'small'} size="small" scroll={scroll} />
     </div>);
   }
 }
