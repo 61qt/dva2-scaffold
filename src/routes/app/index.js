@@ -56,7 +56,7 @@ class Component extends React.Component {
     const query = queryString.parse(window.location.search);
     if (query.ticket && User.validToken(query.ticket)) {
       User.token = query.ticket;
-      const url = window.location.href.replace(/&+?ticket=[^&]*/, '');
+      const url = window.location.href.replace(/&*ticket=[^&]*/, '').replace(/#$/, '').replace(/\?$/, '');
       window.location.replace(url);
       return;
     }
