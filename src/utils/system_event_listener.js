@@ -13,7 +13,8 @@ jQuery(window).on(CONSTANTS.EVENT.CAS.JUMP_AUTH, (e, options) => {
 
 jQuery(window).on(CONSTANTS.EVENT.CAS.CALLBACK, (e, options) => {
   // eslint-disable-next-line no-console
-  const dt = Cookies.get(CONSTANTS.CAS.CALLBACK_URL);
+  let dt = Cookies.get(CONSTANTS.CAS.CALLBACK_URL) || '';
+  dt = dt.replace(/#.+/, '').replace(/\?$/, '');
   const parseUrl = queryString.parseUrl(dt);
   let dtHasQuery = true;
   if (_.isEmpty(parseUrl.query)) {
