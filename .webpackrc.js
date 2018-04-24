@@ -32,6 +32,7 @@ let config = {
   // publicPath: publicPath,
   hash: true,
   externals: {
+    'js-cookie': 'Cookies',
     echarts: 'echarts',
     jquery: 'jQuery',
     'raven-js': 'Raven',
