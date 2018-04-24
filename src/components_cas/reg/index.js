@@ -1,14 +1,17 @@
 import React from 'react';
+import _ from 'lodash';
 // import jQuery from 'jquery';
-import { message, Spin, Form, Input, Icon, Button } from 'antd';
-import { NavLink, Link } from 'dva/router';
+import { message, Spin, Select, Form, Input, Icon, Button } from 'antd';
+import { NavLink } from 'dva/router';
 
 import styles from '../login/index.less';
-// import CONSTANTS from '../../constants';
+import CONSTANTS from '../../constants';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
+import Filters from '../../filters';
 import User from '../../utils/user';
 import { routeObj } from '../../routes/cas/router';
+import buildColumnFormItem from '../../utils/build_column_form_item';
 
 class Component extends React.Component {
   constructor(props) {
@@ -16,7 +19,135 @@ class Component extends React.Component {
     debugAdd('reg', this);
     this.state = {
       submitting: false,
+      formValidate: {},
     };
+
+    this.columns = [
+      {
+        title: '身份',
+        dataIndex: 'role',
+        rules: [{
+          required: true, message: '请选择注册身份',
+        }],
+        extra: '目前只支持注册家长身份的用户',
+        render: () => {
+          return (<Select placeholder="请选择注册身份">
+            {
+              Filters.dict(['user', 'role']).map((elem) => {
+                return (<Select.Option key={elem.value} value={elem.value}>{elem.label}</Select.Option>);
+              })
+            }
+          </Select>);
+        },
+      },
+      {
+        title: '姓名',
+        dataIndex: 'name',
+        rules: [{
+          required: true, message: '请输入你的姓名(必填)',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入你的姓名(必填)" />);
+        },
+      },
+      {
+        title: '身份证号',
+        dataIndex: 'id_card',
+        rules: [{
+          required: true, message: '请输入你的身份证号码(必填)',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="credit-card" style={{ fontSize: 13 }} />} placeholder="请输入你的身份证号码(必填)" />);
+        },
+      },
+      {
+        title: '邮箱',
+        dataIndex: 'mail',
+        rules: [{
+          required: false, message: '请输入你的邮箱(选填)',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入你的邮箱(选填)" />);
+        },
+      },
+      {
+        title: '密码',
+        dataIndex: 'password',
+        rules: [{
+          required: true, message: '请输入你的密码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入新密码密码" />);
+        },
+      },
+      {
+        title: '确认密码',
+        dataIndex: 'confirm_password',
+        rules: [{
+          required: true, message: '请再一次输入你的密码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请重复输入新密码密码" />);
+        },
+      },
+      {
+        title: '手机号',
+        dataIndex: 'phone',
+        rules: [{
+          required: true, message: '请输入手机号码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" />);
+        },
+      },
+      {
+        title: '短信验证码',
+        dataIndex: 'verify_code',
+        rules: [{
+          required: true, message: '请输入短信验证码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" addonAfter={this.getVerifyCodeTipComp()} />);
+        },
+      },
+    ];
+  }
+
+  getVerifyCodeTipComp = () => {
+    return (<div className={styles.smsExtra} onClick={this.sms}>
+      <a>获取短信验证码</a>
+    </div>);
+  }
+
+  resetFormValidate = () => {
+    const formValidate = {};
+    this.columns.forEach((elem) => {
+      const dataIndex = elem.key || elem.dataIndex;
+      formValidate[dataIndex] = {};
+    });
+
+    this.setState({
+      formValidate,
+    });
+  }
+
+  // 提交表单错误时候的处理。
+  errorCallback = (value) => {
+    const formValidate = this.state.formValidate;
+    for (const [k] of Object.entries(formValidate)) {
+      formValidate[k] = {};
+    }
+
+    for (const [k, v] of Object.entries(value)) {
+      formValidate[k] = {
+        validateStatus: 'error',
+        help: _.get(v, '[0]') || v,
+      };
+    }
+    this.setState({
+      formValidate,
+      submitting: false,
+    });
   }
 
   handleSubmit = (e) => {
@@ -29,6 +160,7 @@ class Component extends React.Component {
       return;
     }
 
+    this.resetFormValidate();
     this.props.form.validateFields((err, values) => {
       if (err) {
         formErrorMessageShow(err);
@@ -62,9 +194,7 @@ class Component extends React.Component {
       // });
     }).catch((rej) => {
       formErrorMessageShow(rej);
-      this.setState({
-        submitting: false,
-      });
+      this.errorCallback(rej.data);
     });
   }
 
@@ -74,47 +204,30 @@ class Component extends React.Component {
   }
 
   render() {
-    const getVerifyCodeComp = () => {
-      return (<div className={styles.smsExtra} onClick={this.sms}>
-        <Link to="#">获取短信验证码</Link>
-      </div>);
-    };
+    const formItem = buildColumnFormItem({
+      ...this.props,
+      ...this.state,
+      columns: this.columns,
+      shouldInitialValue: true,
+      defaultValueSet: {
+        role: CONSTANTS.DICT.USER.ROLE.PARENT,
+      },
+      formItemLayout: {},
+      formValidate: this.state.formValidate,
+      warpCol: false,
+      label: false,
+    });
 
     return (
       <div className={styles.normal}>
         <Spin spinning={this.state.submitting}>
           <div className={styles.form}>
             <Form onSubmit={this.handleSubmit}>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('username', {
-                  rules: [{ required: true, message: '请输入登录账号' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号" />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('phone', {
-                  rules: [{ required: true, message: '请输入手机号码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" addonAfter={getVerifyCodeComp()} />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('verify_code', {
-                  rules: [{ required: true, message: '请输入短信验证码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('password', {
-                  rules: [{ required: true, message: '请输入新密码密码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入新密码密码" />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('confirm_password', {
-                  rules: [{ required: true, message: '请重复输入新密码密码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请重复输入新密码密码" />)}
-              </Form.Item>
+              {
+                formItem.map((elem) => {
+                  return elem.render();
+                })
+              }
               <Form.Item>
                 <Button type="primary" htmlType="submit" className={styles.button}>
                   马上注册
