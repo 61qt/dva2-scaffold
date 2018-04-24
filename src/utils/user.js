@@ -25,7 +25,7 @@ export class UserService {
     if (this.tokenCache) {
       return this.tokenCache;
     }
-    return this.getToken();
+    return this.getToken(true);
   }
 
   set token(token) {
