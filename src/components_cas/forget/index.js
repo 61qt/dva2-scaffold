@@ -83,16 +83,6 @@ class Component extends React.Component {
         <Spin spinning={this.state.submitting}>
           <div className={styles.form}>
             <Form onSubmit={this.handleSubmit}>
-              {
-                /*
-                  <Form.Item>
-                    {this.props.form.getFieldDecorator('username', {
-                      rules: [{ required: true, message: '请输入登录账号' }],
-                      initialValue: '',
-                    })(<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号" />)}
-                  </Form.Item>
-                */
-              }
               <Form.Item>
                 {this.props.form.getFieldDecorator('phone', {
                   rules: [{ required: true, message: '请输入手机号码' }],

@@ -76,9 +76,9 @@ class Component extends React.Component {
             <Form onSubmit={this.handleSubmit}>
               <Form.Item>
                 {this.props.form.getFieldDecorator('username', {
-                  rules: [{ required: true, message: '请输入登录账号' }],
+                  rules: [{ required: true, message: '请输入登录账号/手机号码' }],
                   initialValue: __DEV__ ? '宫主' : '',
-                })(<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号" />)}
+                })(<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号/手机号码" />)}
               </Form.Item>
               <Form.Item>
                 {this.props.form.getFieldDecorator('password', {
