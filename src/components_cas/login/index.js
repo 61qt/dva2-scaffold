@@ -7,6 +7,7 @@ import { NavLink } from 'dva/router';
 import styles from '../login/index.less';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
+import buildColumnFormItem from '../../utils/build_column_form_item';
 import User from '../../utils/user';
 import CONSTANTS from '../../constants';
 
@@ -16,7 +17,30 @@ class Component extends React.Component {
     debugAdd('login', this);
     this.state = {
       submitting: false,
+      formValidate: {},
     };
+    this.columns = [
+      {
+        title: '登录账号/手机号',
+        dataIndex: 'username',
+        rules: [{
+          required: true, message: '请输入登录账号/手机号码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号/手机号码" />);
+        },
+      },
+      {
+        title: '密码',
+        dataIndex: 'password',
+        rules: [{
+          required: true, message: '请输入密码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码" />);
+        },
+      },
+    ];
   }
 
   handleSubmit = (e) => {
@@ -29,6 +53,7 @@ class Component extends React.Component {
       return;
     }
 
+    this.resetFormValidate();
     this.props.form.validateFields((err, values) => {
       if (err) {
         formErrorMessageShow(err);
@@ -62,30 +87,67 @@ class Component extends React.Component {
       });
     }).catch((rej) => {
       formErrorMessageShow(rej);
-      this.setState({
-        submitting: false,
-      });
+      this.errorCallback(rej.data);
+    });
+  }
+
+  resetFormValidate = () => {
+    const formValidate = {};
+    this.columns.forEach((elem) => {
+      const dataIndex = elem.key || elem.dataIndex;
+      formValidate[dataIndex] = {};
+    });
+
+    this.setState({
+      formValidate,
+    });
+  }
+
+  // 提交表单错误时候的处理。
+  errorCallback = (value) => {
+    const formValidate = this.state.formValidate;
+    for (const [k] of Object.entries(formValidate)) {
+      formValidate[k] = {};
+    }
+
+    for (const [k, v] of Object.entries(value)) {
+      formValidate[k] = {
+        validateStatus: 'error',
+        help: _.get(v, '[0]') || v,
+      };
+    }
+    this.setState({
+      formValidate,
+      submitting: false,
     });
   }
 
   render() {
+    const formItem = buildColumnFormItem({
+      ...this.props,
+      ...this.state,
+      columns: this.columns,
+      shouldInitialValue: true,
+      defaultValueSet: {
+        username: '',
+        password: '',
+      },
+      formItemLayout: {},
+      formValidate: this.state.formValidate,
+      warpCol: false,
+      label: false,
+    });
+
     return (
       <div className={styles.normal}>
         <Spin spinning={this.state.submitting}>
           <div className={styles.form}>
             <Form onSubmit={this.handleSubmit}>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('username', {
-                  rules: [{ required: true, message: '请输入登录账号/手机号码' }],
-                  initialValue: __DEV__ ? '宫主' : '',
-                })(<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号/手机号码" />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('password', {
-                  rules: [{ required: true, message: '请输入密码' }],
-                  initialValue: __DEV__ ? 'qt12345' : '',
-                })(<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码" />)}
-              </Form.Item>
+              {
+                formItem.map((elem) => {
+                  return elem.render();
+                })
+              }
               <Form.Item>
                 <Button type="primary" htmlType="submit" className={styles.button}>
                   登录
