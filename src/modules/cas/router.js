@@ -12,7 +12,7 @@ function RouterConfig({ history }) {
   return (<LocaleProvider locale={zhCN}>
     <Router history={history}>
       <Switch>
-        <Route path="/cas" exact component={Cas} />
+        <Route path="/cas" component={Cas} />
         <Redirect to="/cas" />
       </Switch>
     </Router>
