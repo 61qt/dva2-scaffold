@@ -112,11 +112,11 @@ class Component extends React.Component {
                   重置密码
                 </Button>
               </Form.Item>
+              <Form.Item className={`${styles.actionLine}`}>
+                <NavLink to={`${this.props.match.path.replace(/\/?forget\/?/, '')}`}>直接登录</NavLink>
+                <NavLink className="float-right" to={`${this.props.match.path.replace(/\/$/, '')}/reg`}>注册新用户</NavLink>
+              </Form.Item>
             </Form>
-            <Form.Item className={`${styles.actionLine}`}>
-              <NavLink to={`${this.props.match.path.replace(/\/?forget\/?/, '')}`}>直接登录</NavLink>
-              <NavLink className="float-right" to={`${this.props.match.path.replace(/\/$/, '')}/reg`}>注册新用户</NavLink>
-            </Form.Item>
           </div>
         </Spin>
       </div>

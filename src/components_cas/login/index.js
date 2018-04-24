@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { message, Spin, Form, Input, Icon, Button } from 'antd';
+import { message, Spin, Divider, Form, Input, Icon, Button } from 'antd';
 import { NavLink } from 'dva/router';
 
 import styles from '../login/index.less';
@@ -93,6 +93,14 @@ class Component extends React.Component {
               <Form.Item className={styles.actionLine}>
                 <NavLink to={`${this.props.match.path.replace(/\/$/, '')}/forget`}>忘记密码</NavLink>
                 <NavLink className="float-right" to={`${this.props.match.path.replace(/\/$/, '')}/reg`}>注册新用户</NavLink>
+              </Form.Item>
+              <Form.Item className={styles.actionLine}>
+                <Divider>社交账号登录</Divider>
+                <div className={styles.unionLogin}>
+                  <div className={styles.unionLoginItem}><Icon type="wechat" /></div>
+                  <div className={styles.unionLoginItem}><Icon type="qq" /></div>
+                  <div className={styles.unionLoginItem}><Icon type="weibo" /></div>
+                </div>
               </Form.Item>
             </Form>
           </div>

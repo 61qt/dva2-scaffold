@@ -23,3 +23,29 @@
 .button {
   width: 100%;
 }
+
+.unionLogin {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  list-style: none;
+  flex-direction: row;
+}
+
+@iconSize: 40px;
+.unionLoginItem {
+  display: block;
+  flex-grow: 1;
+  > i {
+    line-height: @iconSize;
+    height: @iconSize;
+    width: @iconSize;
+    display: block;
+    border: 1px solid #d9d9d9;
+    border-radius: 50%;
+    margin: auto auto;
+    font-size: 24px;
+  }
+}
