@@ -10,7 +10,7 @@ import Router from './router';
 class Component extends React.Component {
   constructor(props) {
     super(props);
-    debugAdd('welcome', this);
+    debugAdd('cas', this);
   }
 
   componentDidMount = () => {

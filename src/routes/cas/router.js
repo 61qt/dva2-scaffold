@@ -9,30 +9,30 @@ const routeArr = [];
 routeArr.push({
   path: 'forget',
   extra: true,
-  component: require('../../components_welcome/forget').default,
+  component: require('../../components_cas/forget').default,
 });
 routeArr.push({
   path: 'auto',
   extra: true,
-  component: require('../../components_welcome/login_auto').default,
+  component: require('../../components_cas/auto').default,
 });
 routeArr.push({
   path: '',
-  component: require('../../components_welcome/login').default,
+  component: require('../../components_cas/login').default,
 });
 /* eslint-enable */
 
 class Component extends React.Component {
   constructor(props) {
     super(props);
-    debugAdd('welcome_router', this);
+    debugAdd('cas_router', this);
   }
 
   render() {
     return (<Switch>
       {
         _.map(routeArr, (elem) => {
-          return (<Route key={elem.path} path={`/welcome/${elem.path}`} extra={elem.extra} component={elem.component} />);
+          return (<Route key={elem.path} path={`/cas/${elem.path}`} extra={elem.extra} component={elem.component} />);
         })
       }
     </Switch>);
