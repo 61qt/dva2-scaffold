@@ -2,7 +2,6 @@ import { Route } from 'dva/router';
 import _ from 'lodash';
 import { connect } from 'dva';
 import jQuery from 'jquery';
-import moment from 'moment';
 import { message } from 'antd';
 import queryString from 'query-string';
 import formErrorMessageShow from '../../utils/form_error_message_show';
@@ -37,7 +36,7 @@ class Component extends React.Component {
   }
 
   componentWillMount() {
-    this.appOnEnter();
+    this.onEnter();
   }
 
   componentDidMount = () => {
@@ -51,6 +50,37 @@ class Component extends React.Component {
   componentWillUnmount = () => {
     window.clearInterval(prolongingInterval);
     document.cookie = 'prolonging=false;path=/';
+  }
+
+  onEnter() {
+    const query = queryString.parse(window.location.search);
+    if (query.ticket && User.validToken(query.ticket)) {
+      User.token = query.ticket;
+      if (query.dt) {
+        window.location.replace(query.dt);
+      }
+      else {
+        window.location.replace('/');
+      }
+      return;
+    }
+
+    // 初始化，从本地存储读取登录信息。
+    if (!User.token) {
+      this.loginTokenFail({});
+      return false;
+    }
+
+    this.props.dispatch({
+      type: 'area/init',
+    });
+
+    Services.common.loginToken().then((res) => {
+      return this.loginTokenSuccess({ res });
+    }).catch((rej) => {
+      this.loginTokenFail({ rej });
+      return Promise.reject(rej);
+    });
   }
 
   getAuthedComp() {
@@ -89,46 +119,6 @@ class Component extends React.Component {
         }, 30 * 1000);
       });
     }
-  }
-
-  appOnEnter() {
-    // 旧的收藏夹问题。
-    const ctrlDMatch = window.location.hash.match(/ctrl_d=([\d-]+)/);
-    const today = moment().format('YYYY-MM-DD');
-
-    const query = queryString.parse(window.location.search);
-    if (query.ticket && User.validToken(query.ticket)) {
-      User.token = query.ticket;
-      if (query.dt) {
-        window.location.replace(query.dt);
-      }
-      else {
-        window.location.replace('/');
-      }
-      return;
-    }
-
-    if (ctrlDMatch && today !== ctrlDMatch[1]) {
-      window.location.replace('/app/');
-      return;
-    }
-
-    // 初始化，从本地存储读取登录信息。
-    if (!User.token) {
-      this.loginTokenFail({});
-      return false;
-    }
-
-    this.props.dispatch({
-      type: 'area/init',
-    });
-
-    Services.common.loginToken().then((res) => {
-      return this.loginTokenSuccess({ res });
-    }).catch((rej) => {
-      this.loginTokenFail({ rej });
-      return Promise.reject(rej);
-    });
   }
 
   loginTokenFail({ rej }) {
@@ -212,8 +202,8 @@ class Component extends React.Component {
 
       else {
         setTimeout(() => {
-          window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
-        }, 2000);
+          jQuery(window).trigger(CONSTANTS.EVENT.CAS.JUMP_AUTH);
+        }, 1000);
         return (<div>
           <div>授权中。。。</div>
         </div>);
