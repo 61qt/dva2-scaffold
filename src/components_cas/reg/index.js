@@ -107,7 +107,7 @@ class Component extends React.Component {
           required: true, message: '请输入短信验证码',
         }],
         render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" addonAfter={this.getVerifyCodeTipComp()} />);
+          return (<Input autoComplete="true" prefix={<Icon type="message" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" addonAfter={this.getVerifyCodeTipComp()} />);
         },
       },
     ];
