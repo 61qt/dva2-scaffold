@@ -1,4 +1,5 @@
 import React from 'react';
+import jQuery from 'jquery';
 import _ from 'lodash';
 import { message, Spin, Divider, Form, Input, Icon, Button } from 'antd';
 import { NavLink } from 'dva/router';
@@ -56,9 +57,9 @@ class Component extends React.Component {
       this.setState({
         submitting: false,
       });
-      setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.APP}${location.search}${location.search ? '&' : '?'}ticket=${data.token}`);
-      }, 10);
+      return jQuery(window).trigger(CONSTANTS.EVENT.CAS.CALLBACK, {
+        ticket: data.token,
+      });
     }).catch((rej) => {
       formErrorMessageShow(rej);
       this.setState({
