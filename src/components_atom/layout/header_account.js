@@ -56,7 +56,9 @@ class Component extends React.Component {
         description: '你已经成功退出登录',
         duration: CONSTANTS.NOTIFICATION_DURATION,
       });
-      window.location.href = '/welcome';
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+      }, 2000);
     }
   }
 

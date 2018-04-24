@@ -89,11 +89,12 @@ class Component extends React.Component {
   }
 
   handleModelOk = () => {
-    const { history } = this.props;
     this.setState({
       modalVisible: false,
     }, () => {
-      history.push('/welcome');
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+      }, 1000);
     });
   }
 

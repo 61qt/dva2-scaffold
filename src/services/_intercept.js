@@ -1,9 +1,8 @@
-// import fetch from 'dva/fetch';
 import _ from 'lodash';
 import jQuery from 'jquery';
 import moment from 'moment';
-import { browserHistory } from 'dva/router';
 import Services from '../services';
+import CONSTANTS from '../constants';
 import User from '../utils/user';
 import formErrorMessageShow from '../utils/form_error_message_show';
 import { undershoot as sentryUndershoot } from '../utils/dva-sentry';
@@ -298,8 +297,10 @@ export function requestInterceptor(config) {
         }
       }, 1);
       formErrorMessageShow(rej);
-      // 切换回登录页面。 使用 browserHistory 是因为 app 初始化的时候，进行了一个 history 的设置为 browserHistory 。
-      browserHistory.push('/welcome');
+      // 切换回登录页面。
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+      }, 2000);
       return rej;
     });
     return makeDeferRequest();
