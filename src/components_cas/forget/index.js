@@ -93,13 +93,13 @@ class Component extends React.Component {
                 {this.props.form.getFieldDecorator('phone', {
                   rules: [{ required: true, message: '请输入手机号码' }],
                   initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" addonAfter={getVerifyCodeComp()} />)}
+                })(<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" />)}
               </Form.Item>
               <Form.Item>
                 {this.props.form.getFieldDecorator('verify_code', {
                   rules: [{ required: true, message: '请输入短信验证码' }],
                   initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" />)}
+                })(<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码"addonAfter={getVerifyCodeComp()} />)}
               </Form.Item>
               <Form.Item>
                 {this.props.form.getFieldDecorator('password', {
