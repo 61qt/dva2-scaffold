@@ -95,7 +95,7 @@ class Component extends React.Component {
                 <NavLink to={`${this.props.match.path.replace(/\/$/, '')}/forget`}>忘记密码</NavLink>
                 <NavLink className="float-right" to={`${this.props.match.path.replace(/\/$/, '')}/reg`}>注册新用户</NavLink>
               </Form.Item>
-              <Form.Item className={styles.actionLine}>
+              <Form.Item className={`${styles.actionLine} ant-hide`}>
                 <Divider>社交账号登录</Divider>
                 <div className={styles.unionLogin}>
                   <div className={styles.unionLoginItem}><Icon type="wechat" /></div>
