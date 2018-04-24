@@ -26,7 +26,7 @@ server {
   add_header Strict-Transport-Security "max-age=1";
 
   location = / {
-    rewrite ^(.*)$ https://$http_host/app/ break;
+    rewrite ^(.*)$ https://$http_host/${moduleName}/ break;
   }
 
   location / {
@@ -41,12 +41,12 @@ server {
     proxy_set_header Connection "upgrade";
   }
 
-  location ^~ /welcome/ {
+  location ^~ /${moduleName}/ {
     # 注意改造成为自己启动的那个 ip 及端口
     proxy_pass http://localhost:${modulePort}/index.html?#;
   }
 
-  location ^~ /app/ {
+  location ^~ /${moduleName} {
     # 注意改造成为自己启动的那个 ip 及端口
     proxy_pass http://localhost:${modulePort}/index.html?#;
   }
@@ -67,7 +67,7 @@ server {
 
   location = / {
     # gulp webpack output dist path
-    rewrite ^(.*)$ https://$http_host/app/ break;
+    rewrite ^(.*)$ https://$http_host/${moduleName}/ break;
   }
 
   location / {
@@ -80,13 +80,7 @@ server {
     add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
   }
 
-  location ^~ /welcome {
-    root ${devRoot}/prod_${moduleName}/;
-    index index.html;
-    try_files $uri $uri/ $uri.html /index.html =404;
-  }
-
-  location ^~ /app {
+  location ^~ /${moduleName} {
     root ${devRoot}/prod_${moduleName}/;
     index index.html;
     try_files $uri $uri/ $uri.html /index.html =404;
