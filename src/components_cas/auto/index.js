@@ -4,12 +4,13 @@ import { connect } from 'dva';
 import { Form, Spin, message } from 'antd';
 import styles from './index.less';
 import Services from '../../services';
+import CONSTANTS from '../../constants';
 import User from '../../utils/user';
 
 class Component extends React.Component {
   constructor(props) {
     super(props);
-    debugAdd('login_auto', this);
+    debugAdd('auto', this);
     this.state = {
       submitting: false,
     };
@@ -20,12 +21,14 @@ class Component extends React.Component {
   }
 
   handleSubmit = () => {
-    const { location, history } = this.props;
+    const { location } = this.props;
 
     const ticket = _.get(location, 'query.ticket');
     if (!ticket) {
       message.success('没有 ticket ，不能自动登录');
-      this.props.history.push('/welcome');
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+      }, 2000);
       return false;
     }
 
@@ -34,10 +37,14 @@ class Component extends React.Component {
       const token = data.token || '';
       User.token = token;
       message.success('自动登录成功');
-      history.replace('/app');
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.APP}?dt=${encodeURIComponent(location.href)}`);
+      }, 2000);
     }).catch(() => {
       message.error('自动登录失败，请使用密码登录');
-      history.replace('/welcome');
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+      }, 2000);
     });
   }
 
