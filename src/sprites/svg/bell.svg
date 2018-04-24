@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="应用" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="应用－操作表单" transform="translate(-1078.000000, -17.000000)" fill="#FFFFFF">
+            <g id="Group-9-Copy-2">
+                <g id="Group" transform="translate(1078.000000, 17.000000)">
+                    <path d="M10,15 L6,15 C6,16.1 6.9,17 8,17 C9.1,17 10,16.1 10,15 Z" id="Path"></path>
+                    <path d="M0.5,14 L15.5,14 C15.7761424,14 16,13.7761424 16,13.5 C16,13.2238576 15.7761424,13 15.5,13 L0.5,13 C0.223857625,13 0,13.2238576 0,13.5 C0,13.7761424 0.223857625,14 0.5,14 Z" id="Line" fill-rule="nonzero"></path>
+                    <path d="M14,13.9823368 L14,8.26030056 C14,4.80799621 11.3286922,2 8,2 C4.67799343,2 2,4.81562689 2,8.26030056 L2,13.9823368 C2,14.0251999 14,13.9757229 14,13.9823368 Z" id="Rectangle-93" fill-rule="nonzero"></path>
+                    <path d="M8,0 L8,0 C8.55228475,-1.01453063e-16 9,0.44771525 9,1 L9,3 C9,3.55228475 8.55228475,4 8,4 L8,4 C7.44771525,4 7,3.55228475 7,3 L7,1 C7,0.44771525 7.44771525,1.01453063e-16 8,0 Z" id="Rectangle-4"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
