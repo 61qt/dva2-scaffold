@@ -1,4 +1,5 @@
 import React from 'react';
+import jQuery from 'jquery';
 import _ from 'lodash';
 import { connect } from 'dva';
 import { Form, Spin, message } from 'antd';
@@ -27,7 +28,7 @@ class Component extends React.Component {
     if (!ticket) {
       message.success('没有 ticket ，不能自动登录');
       setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}${location.search}`);
+        window.location.replace(`/${location.search}`);
       }, 10);
       return false;
     }
@@ -36,14 +37,13 @@ class Component extends React.Component {
       const data = res.data || {};
       User.token = data.token;
       message.success('自动登录成功');
-      setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.APP}${location.search}${location.search ? '&' : '?'}ticket=${data.token}`);
-      }, 10);
-      return true;
+      return jQuery(window).trigger(CONSTANTS.EVENT.CAS.CALLBACK, {
+        ticket: data.token,
+      });
     }).catch(() => {
       message.error('自动登录失败，请使用密码登录');
       setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+        window.location.replace(`/${location.search}`);
       }, 2000);
     });
   }
