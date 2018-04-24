@@ -15,13 +15,11 @@ import FormComponents from './components_form';
 import Services from './services';
 import formErrorMessageShow from './utils/form_error_message_show';
 import './utils/hotjar';
+import './utils/ctrl_d';
+import './utils/debug_add';
+import './utils/system_event_listener';
 
 import './index.less';
-
-window.debugAdd = function debugAdd(key, memory) {
-  window.debugAddSave = window.debugAddSave || {};
-  window.debugAddSave[key] = memory;
-};
 
 // 全局变量挂载，方便调试使用。
 // eslint-disable-next-line no-underscore-dangle

@@ -1,6 +1,15 @@
 import DICT from './dict';
 
 const CONSTANTS = {
+  EVENT: {
+    CAS: {
+      JUMP_AUTH: 'CAS_JUMP_AUTH',
+      CALLBACK: 'CAS_CALLBACK',
+    },
+  },
+  CAS: {
+    CALLBACK_URL: 'CAS_BALLBACK_URL',
+  },
   URL_CONFIG: {
     CAS: 'https://cas.example.cn',
     APP: 'https://app.example.cn',
