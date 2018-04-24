@@ -5,10 +5,11 @@ import Cookies from 'js-cookie';
 
 import CONSTANTS from '../constants';
 
-jQuery(window).on(CONSTANTS.EVENT.CAS.JUMP_AUTH, (e, options) => {
+jQuery(window).on(CONSTANTS.EVENT.CAS.JUMP_AUTH, () => {
   // eslint-disable-next-line no-console
-  console.log('e', e, 'options', options);
-  window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(window.location.href)}`);
+  let callbackHref = window.location.href;
+  callbackHref = callbackHref.replace(/#*?&*?ctrl_d=([\d-]+)/ig, '').replace(/#$/ig, '').replace(/\?$/ig, '');
+  window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(callbackHref)}`);
 });
 
 jQuery(window).on(CONSTANTS.EVENT.CAS.CALLBACK, (e, options) => {
