@@ -14,6 +14,12 @@ const gender = {
 };
 
 export default {
+  USER: {
+    ROLE: {
+      PARENT: 0,
+      ___PARENT: '家长',
+    },
+  },
   NATION: nation,
   GENDER: gender,
   TEACHER: {
