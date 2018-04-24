@@ -2,6 +2,7 @@ const models = [
   require('./area').default,
   require('./all_resource').default,
   require('./breadcrumb').default,
+  require('./ctrl_d').default,
   require('./foreign_select').default,
   require('./menu_config').default,
   require('./post').default,
