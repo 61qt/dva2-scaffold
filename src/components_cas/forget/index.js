@@ -1,10 +1,12 @@
 import React from 'react';
+import _ from 'lodash';
 // import jQuery from 'jquery';
 import { message, Spin, Form, Input, Icon, Button } from 'antd';
-import { NavLink, Link } from 'dva/router';
+import { NavLink } from 'dva/router';
 import styles from '../login/index.less';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
+import buildColumnFormItem from '../../utils/build_column_form_item';
 import User from '../../utils/user';
 // import CONSTANTS from '../../constants';
 
@@ -14,7 +16,58 @@ class Component extends React.Component {
     debugAdd('forget', this);
     this.state = {
       submitting: false,
+      formValidate: {},
     };
+
+    this.columns = [
+      {
+        title: '手机号',
+        // dataIndex: 'username',
+        dataIndex: 'phone',
+        rules: [{
+          required: true, message: '请输入手机号码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" />);
+        },
+      },
+      {
+        title: '短信验证码',
+        dataIndex: 'verify_code',
+        rules: [{
+          required: true, message: '请输入短信验证码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" addonAfter={this.getVerifyCodeTipComp()} />);
+        },
+      },
+      {
+        title: '新密码',
+        dataIndex: 'password',
+        rules: [{
+          required: true, message: '请输入新密码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入新密码密码" />);
+        },
+      },
+      {
+        title: '确认密码',
+        dataIndex: 'confirm_password',
+        rules: [{
+          required: true, message: '请重复输入新密码密码',
+        }],
+        render: () => {
+          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请重复输入新密码密码" />);
+        },
+      },
+    ];
+  }
+
+  getVerifyCodeTipComp = () => {
+    return (<div className={styles.smsExtra} onClick={this.sms}>
+      <a>获取短信验证码</a>
+    </div>);
   }
 
   handleSubmit = (e) => {
@@ -27,6 +80,7 @@ class Component extends React.Component {
       return;
     }
 
+    this.resetFormValidate();
     this.props.form.validateFields((err, values) => {
       if (err) {
         formErrorMessageShow(err);
@@ -60,9 +114,38 @@ class Component extends React.Component {
       // });
     }).catch((rej) => {
       formErrorMessageShow(rej);
-      this.setState({
-        submitting: false,
-      });
+      this.errorCallback(rej.data);
+    });
+  }
+
+  resetFormValidate = () => {
+    const formValidate = {};
+    this.columns.forEach((elem) => {
+      const dataIndex = elem.key || elem.dataIndex;
+      formValidate[dataIndex] = {};
+    });
+
+    this.setState({
+      formValidate,
+    });
+  }
+
+  // 提交表单错误时候的处理。
+  errorCallback = (value) => {
+    const formValidate = this.state.formValidate;
+    for (const [k] of Object.entries(formValidate)) {
+      formValidate[k] = {};
+    }
+
+    for (const [k, v] of Object.entries(value)) {
+      formValidate[k] = {
+        validateStatus: 'error',
+        help: _.get(v, '[0]') || v,
+      };
+    }
+    this.setState({
+      formValidate,
+      submitting: false,
     });
   }
 
@@ -72,41 +155,28 @@ class Component extends React.Component {
   }
 
   render() {
-    const getVerifyCodeComp = () => {
-      return (<div className={styles.smsExtra} onClick={this.sms}>
-        <Link to="#">获取短信验证码</Link>
-      </div>);
-    };
+    const formItem = buildColumnFormItem({
+      ...this.props,
+      ...this.state,
+      columns: this.columns,
+      shouldInitialValue: true,
+      defaultValueSet: {},
+      formItemLayout: {},
+      formValidate: this.state.formValidate,
+      warpCol: false,
+      label: false,
+    });
 
     return (
       <div className={styles.normal}>
         <Spin spinning={this.state.submitting}>
           <div className={styles.form}>
             <Form onSubmit={this.handleSubmit}>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('phone', {
-                  rules: [{ required: true, message: '请输入手机号码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('verify_code', {
-                  rules: [{ required: true, message: '请输入短信验证码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码"addonAfter={getVerifyCodeComp()} />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('password', {
-                  rules: [{ required: true, message: '请输入新密码密码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入新密码密码" />)}
-              </Form.Item>
-              <Form.Item>
-                {this.props.form.getFieldDecorator('confirm_password', {
-                  rules: [{ required: true, message: '请重复输入新密码密码' }],
-                  initialValue: '',
-                })(<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请重复输入新密码密码" />)}
-              </Form.Item>
+              {
+                formItem.map((elem) => {
+                  return elem.render();
+                })
+              }
               <Form.Item>
                 <Button type="primary" htmlType="submit" className={styles.button}>
                   重置密码
@@ -114,7 +184,7 @@ class Component extends React.Component {
               </Form.Item>
               <Form.Item className={`${styles.actionLine}`}>
                 <NavLink to={`${this.props.match.path.replace(/\/?forget\/?/, '')}`}>直接登录</NavLink>
-                <NavLink className="float-right" to={`${this.props.match.path.replace(/\/$/, '')}/reg`}>注册新用户</NavLink>
+                <NavLink className="float-right" to={`${this.props.match.path.replace(/\/?forget\/?/, '')}/reg`}>注册新用户</NavLink>
               </Form.Item>
             </Form>
           </div>
