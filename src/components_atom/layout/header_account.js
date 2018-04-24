@@ -1,4 +1,5 @@
 import React from 'react';
+import jQuery from 'jquery';
 import { connect } from 'dva';
 // import _ from 'lodash';
 import { NavLink } from 'dva/router';
@@ -40,10 +41,7 @@ class Component extends React.Component {
 
   handleMenuClick = (e) => {
     if ('logout' === e.key) {
-      const href = window.location.href;
-      setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(href)}`);
-      }, 1);
+      jQuery(window).trigger(CONSTANTS.EVENT.CAS.JUMP_AUTH);
 
       User.clean();
       notification.success({
@@ -91,10 +89,10 @@ class Component extends React.Component {
         </Menu.Item>
         <Menu.Item key="logout">
           <div>
-            <NavLink to="#">
+            <a>
               <Icon type="logout" />
               <span>退出登录</span>
-            </NavLink>
+            </a>
           </div>
         </Menu.Item>
       </Menu>
