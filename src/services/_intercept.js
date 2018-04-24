@@ -164,7 +164,7 @@ export function responseFailInterceptor(config) {
     // 未知的错误。
     sentryUndershoot.capture(new RequestUncatchError(config), config);
   }
-  return Promise.reject(config.data);
+  return Promise.reject(_.get(config, 'response.data') || {});
 }
 
 export function requestInterceptor(config) {
