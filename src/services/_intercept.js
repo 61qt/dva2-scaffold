@@ -79,6 +79,7 @@ export function responseSuccessInterceptor(response) {
   clearNetworkTimeout(response.uuid || _.get(response, 'config.uuid'));
   const { data } = response;
   jQuery(window).trigger('request', response);
+  jQuery(window).trigger('httpFinish', response);
   return data;
 }
 
@@ -299,7 +300,7 @@ export function requestInterceptor(config) {
       formErrorMessageShow(rej);
       // 切换回登录页面。
       setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+        jQuery(window).trigger(CONSTANTS.EVENT.CAS.JUMP_AUTH);
       }, 2000);
       return rej;
     });
