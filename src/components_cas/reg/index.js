@@ -1,7 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 // import jQuery from 'jquery';
-import { message, Spin, Select, Form, Input, Icon, Button } from 'antd';
+import { message, Spin, Select, Form, Input, Button } from 'antd';
+// InputNumber Icon
 import { NavLink } from 'dva/router';
 
 import styles from '../login/index.less';
@@ -46,9 +47,9 @@ class Component extends React.Component {
         rules: [{
           required: true, message: '请输入你的姓名(必填)',
         }],
-        render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入你的姓名(必填)" />);
-        },
+        // render: () => {
+        //   return (<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入你的姓名(必填)" />);
+        // },
       },
       {
         title: '身份证号',
@@ -56,9 +57,9 @@ class Component extends React.Component {
         rules: [{
           required: true, message: '请输入你的身份证号码(必填)',
         }],
-        render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="credit-card" style={{ fontSize: 13 }} />} placeholder="请输入你的身份证号码(必填)" />);
-        },
+        // render: () => {
+        //   return (<Input autoComplete="true" prefix={<Icon type="credit-card" style={{ fontSize: 13 }} />} placeholder="请输入你的身份证号码(必填)" />);
+        // },
       },
       {
         title: '邮箱',
@@ -66,9 +67,9 @@ class Component extends React.Component {
         rules: [{
           required: false, message: '请输入你的邮箱(选填)',
         }],
-        render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入你的邮箱(选填)" />);
-        },
+        // render: () => {
+        //   return (<Input htmlType="email" autoComplete="true" prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="请输入你的邮箱(选填)" />);
+        // },
       },
       {
         title: '密码',
@@ -76,9 +77,9 @@ class Component extends React.Component {
         rules: [{
           required: true, message: '请输入你的密码',
         }],
-        render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入新密码密码" />);
-        },
+        // render: () => {
+        //   return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入新密码密码" />);
+        // },
       },
       {
         title: '确认密码',
@@ -86,9 +87,9 @@ class Component extends React.Component {
         rules: [{
           required: true, message: '请再一次输入你的密码',
         }],
-        render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请重复输入新密码密码" />);
-        },
+        // render: () => {
+        //   return (<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请重复输入新密码密码" />);
+        // },
       },
       {
         title: '手机号',
@@ -96,9 +97,18 @@ class Component extends React.Component {
         rules: [{
           required: true, message: '请输入手机号码',
         }],
-        render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" />);
+        inputNumberOptions: {
+          className: 'ant-input-number-row',
+          min: 13000000000,
+          max: 19999999999,
         },
+        // render: () => {
+        //   const inputNumberOptions = {
+        //     min: 13000000000,
+        //     max: 19999999999,
+        //   };
+        //   return (<InputNumber {...inputNumberOptions} autoComplete="true" prefix={<Icon type="mobile" style={{ fontSize: 13 }} />} placeholder="请输入手机号码" />);
+        // },
       },
       {
         title: '短信验证码',
@@ -107,7 +117,8 @@ class Component extends React.Component {
           required: true, message: '请输入短信验证码',
         }],
         render: () => {
-          return (<Input autoComplete="true" prefix={<Icon type="message" style={{ fontSize: 13 }} />} placeholder="请输入短信验证码" addonAfter={this.getVerifyCodeTipComp()} />);
+          // prefix={<Icon type="message" style={{ fontSize: 13 }} />}
+          return (<Input autoComplete="true" placeholder="请输入短信验证码" addonAfter={this.getVerifyCodeTipComp()} />);
         },
       },
     ];
