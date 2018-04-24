@@ -3,6 +3,7 @@ import _ from 'lodash';
 import jQuery from 'jquery';
 import moment from 'moment';
 import store from 'store';
+import queryString from 'query-string';
 
 import 'blueimp-canvas-to-blob';
 
@@ -50,3 +51,5 @@ window.formErrorMessageShow = formErrorMessageShow;
 window.http = http;
 // eslint-disable-next-line no-underscore-dangle
 window.store = store;
+// eslint-disable-next-line no-underscore-dangle
+window.queryString = queryString;

@@ -7,10 +7,6 @@ import styles from './header_account.less';
 import CONSTANTS from '../../constants';
 import Filters from '../../filters';
 import User from '../../utils/user';
-// import {
-//   LogoutError,
-// } from '../../utils/error_class';
-// import { undershoot as sentryUndershoot } from '../../utils/dva-sentry';
 
 class Component extends React.Component {
   constructor(props) {
@@ -43,23 +39,21 @@ class Component extends React.Component {
   }
 
   handleMenuClick = (e) => {
-    // const { history } = this.props;
-    this.setState({ visible: false });
     if ('logout' === e.key) {
-      // sentryUndershoot.capture(new LogoutError(msg), {
-      //   msg,
-      // });
-      // document.cookie = 'isLogout=true;path=/';
+      const href = window.location.href;
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(href)}`);
+      }, 1);
+
       User.clean();
       notification.success({
         message: '系统提示',
         description: '你已经成功退出登录',
         duration: CONSTANTS.NOTIFICATION_DURATION,
       });
-      setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
-      }, 2000);
+      return true;
     }
+    this.setState({ visible: false });
   }
 
   render() {
@@ -120,9 +114,9 @@ class Component extends React.Component {
             <img className={`img-1-1-40 ${styles.accountImg}`} src={Filters.qiniuImage(User.info.avatar, { width: 80, height: 80 })} alt={User.info.name} />
             <span className={styles.accountName}>
               <span className={768 > window.innerWidth ? 'ant-hide' : ''}>{User.info.name}</span>
-              <span className="header-account-role">
+              <span className={`header-account-role ${User.info.role_name ? '' : 'ant-hide'}`}>
                 &nbsp;&nbsp;
-                { User.info.role_name }
+                ({ User.info.role_name })
               </span>
             </span>
             { this.state.visible ? null : <Badge count={unreadCount} /> }

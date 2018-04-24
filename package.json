@@ -4,12 +4,12 @@
     "watch": "TSLINT=none ESLINT=none BROWSER=none RELEASE_ENV=DEV roadhog dev",
     "build": "TSLINT=none ESLINT=none BROWSER=none RELEASE_ENV=RELEASE roadhog build",
     "startApp": "export PORT=9101 RELEASE_MODULE=app && npm run watch",
-    "startWelcome": "export PORT=9102 RELEASE_MODULE=welcome && npm run watch",
+    "startCas": "export PORT=9102 RELEASE_MODULE=cas && npm run watch",
     "startExample": "export PORT=9103 RELEASE_MODULE=example && npm run watch",
     "releaseApp": "export RELEASE_MODULE=app && npm run build",
-    "releaseWelcome": "export RELEASE_MODULE=welcome && npm run build",
+    "releaseCas": "export RELEASE_MODULE=cas && npm run build",
     "releaseExample": "export RELEASE_MODULE=example && npm run build",
-    "release": "rimraf dist/* && rimraf prod_*/** &&yarn run releaseApp && yarn run releaseWelcome && yarn run releaseExample",
+    "release": "rimraf dist/* && rimraf prod_*/** &&yarn run releaseApp && yarn run releaseCas && yarn run releaseExample",
     "lint": "eslint --ext .js --fix src test",
     "precommit": "npm run lint"
   },
@@ -23,6 +23,7 @@
     "jwt-decode": "^2.2.0",
     "left-pad": "^1.3.0",
     "qr.js": "^0.0.0",
+    "query-string": "^6.0.0",
     "store": "^2.0.12"
   },
   "devDependencies": {

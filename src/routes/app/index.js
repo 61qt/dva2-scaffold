@@ -4,7 +4,9 @@ import { connect } from 'dva';
 import jQuery from 'jquery';
 import moment from 'moment';
 import { message } from 'antd';
+import queryString from 'query-string';
 import formErrorMessageShow from '../../utils/form_error_message_show';
+
 
 import Services from '../../services';
 import CONSTANTS from '../../constants';
@@ -93,6 +95,19 @@ class Component extends React.Component {
     // 旧的收藏夹问题。
     const ctrlDMatch = window.location.hash.match(/ctrl_d=([\d-]+)/);
     const today = moment().format('YYYY-MM-DD');
+
+    const query = queryString.parse(window.location.search);
+    if (query.ticket && User.validToken(query.ticket)) {
+      User.token = query.ticket;
+      if (query.dt) {
+        window.location.replace(query.dt);
+      }
+      else {
+        window.location.replace('/');
+      }
+      return;
+    }
+
     if (ctrlDMatch && today !== ctrlDMatch[1]) {
       window.location.replace('/app/');
       return;
@@ -140,7 +155,7 @@ class Component extends React.Component {
 
     user.access = access.join(',');
 
-    user.info = user;
+    User.info = user;
     sentryUndershoot.setUserContent(user);
 
     this.props.dispatch({

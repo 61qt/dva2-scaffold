@@ -4,7 +4,7 @@ const git = require('git-rev-sync');
 const moment = require('moment');
 
 const buildModule = process.env.RELEASE_MODULE || 'app';
-const buildModules = ['app', 'welcome', 'example'];
+const buildModules = ['app', 'cas', 'example'];
 
 if (0 > buildModules.indexOf(buildModule)) {
   console.log('传入 RELEASE_MODULE 出错，必须为', JSON.stringify(buildModules), ' 中的一个');

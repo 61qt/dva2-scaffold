@@ -2,10 +2,12 @@ import React from 'react';
 import _ from 'lodash';
 import { message, Spin, Form, Input, Icon, Button } from 'antd';
 import { NavLink } from 'dva/router';
+
 import styles from './index.less';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
 import User from '../../utils/user';
+import CONSTANTS from '../../constants';
 
 class Component extends React.Component {
   constructor(props) {
@@ -54,7 +56,9 @@ class Component extends React.Component {
       this.setState({
         submitting: false,
       });
-      this.props.history.replace('/app');
+      setTimeout(() => {
+        window.location.replace(`${CONSTANTS.URL_CONFIG.APP}${location.search}${location.search ? '&' : '?'}ticket=${data.token}`);
+      }, 10);
     }).catch((rej) => {
       formErrorMessageShow(rej);
       this.setState({
@@ -74,13 +78,13 @@ class Component extends React.Component {
               <Form.Item>
                 {this.props.form.getFieldDecorator('username', {
                   rules: [{ required: true, message: '请输入登录账号' }],
-                  initialValue: '',
+                  initialValue: __DEV__ ? '宫主' : '',
                 })(<Input autoComplete="true" prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入登录账号" />)}
               </Form.Item>
               <Form.Item>
                 {this.props.form.getFieldDecorator('password', {
                   rules: [{ required: true, message: '请输入密码' }],
-                  initialValue: '',
+                  initialValue: __DEV__ ? 'qt12345' : '',
                 })(<Input autoComplete="true" prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码" />)}
               </Form.Item>
               <Form.Item>
