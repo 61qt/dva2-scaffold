@@ -1,7 +1,7 @@
 import _ from 'lodash';
+import jQuery from 'jquery';
 import { Modal, Breadcrumb, version, Layout, Icon, Tooltip } from 'antd';
 import React from 'react';
-import $ from 'jquery';
 import { connect } from 'dva';
 import { Link, NavLink } from 'dva/router';
 import Header from './header';
@@ -25,10 +25,10 @@ class Component extends React.Component {
   }
 
   componentDidMount = () => {
-    $(window).on('resize', () => {
+    jQuery(window).on('resize', () => {
       this.changeInnerWidth();
     });
-    $(window).on('focus', () => {
+    jQuery(window).on('focus', () => {
       this.handleGlobalClick({});
     });
   }
@@ -93,7 +93,7 @@ class Component extends React.Component {
       modalVisible: false,
     }, () => {
       setTimeout(() => {
-        window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+        jQuery(window).trigger(CONSTANTS.EVENT.CAS.JUMP_AUTH);
       }, 1000);
     });
   }
