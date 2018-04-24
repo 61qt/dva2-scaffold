@@ -31,7 +31,7 @@ class Component extends React.Component {
 
   onEnter = () => {
     const query = queryString.parse(window.location.search);
-    const url = window.location.href.replace(/\?.+/, '');
+    const url = window.location.href.replace(/\?.*/, '').replace(/#.*/, '');
 
     let referrer = document.referrer;
     if (!referrer) {
@@ -46,6 +46,10 @@ class Component extends React.Component {
         referrer = '';
       }
     }
+    // 如果是相同域名的，就直接忽略
+    if (new RegExp(`^https?://${location.hostname}${location.port ? ':' : ''}${location.port}`).test(referrer)) {
+      referrer = '';
+    }
 
     let dt = query.dt;
     if (!query.dt && !referrer) {
@@ -55,11 +59,11 @@ class Component extends React.Component {
       }
 
       dt = encodeURIComponent(CONSTANTS.URL_CONFIG.APP);
-      window.location.replace(`${url}${window.location.search}${window.location.search ? '&' : ''}dt=${dt}`);
+      window.location.replace(`${url}${window.location.search}${window.location.search ? '&' : '?'}dt=${dt}`);
     }
     else if (!query.dt && referrer) {
       dt = encodeURIComponent(document.referrer);
-      window.location.replace(`${url}${window.location.search}${window.location.search ? '&' : ''}dt=${dt}`);
+      window.location.replace(`${url}${window.location.search}${window.location.search ? '&' : '?'}dt=${dt}`);
     }
 
     Cookies.set(CONSTANTS.CAS.CALLBACK_URL, dt);
