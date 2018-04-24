@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'dva';
 import { Form, Spin, message } from 'antd';
-import styles from './index.less';
+import styles from '../login/index.less';
 import Services from '../../services';
 import CONSTANTS from '../../constants';
 import User from '../../utils/user';

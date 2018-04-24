@@ -12,6 +12,11 @@ routeArr.push({
   component: require('../../components_cas/forget').default,
 });
 routeArr.push({
+  path: 'reg',
+  extra: true,
+  component: require('../../components_cas/reg').default,
+});
+routeArr.push({
   path: 'auto',
   extra: true,
   component: require('../../components_cas/auto').default,
