@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'dva/router';
+import { Route } from 'dva/router';
 import _ from 'lodash';
 import { connect } from 'dva';
 import jQuery from 'jquery';
@@ -7,6 +7,7 @@ import { message } from 'antd';
 import formErrorMessageShow from '../../utils/form_error_message_show';
 
 import Services from '../../services';
+import CONSTANTS from '../../constants';
 import User from '../../utils/user';
 import Layout from '../../components_atom/layout';
 import { undershoot as sentryUndershoot } from '../../utils/dva-sentry';
@@ -190,10 +191,18 @@ class Component extends React.Component {
         </div>);
       }
 
-      return this.state.logged ? this.getAuthedComp() : (<div>
-        <div>授权失败的。</div>
-        <Redirect to="/welcome" />
-      </div>);
+      if (this.state.logged) {
+        return this.getAuthedComp();
+      }
+
+      else {
+        setTimeout(() => {
+          window.location.replace(`${CONSTANTS.URL_CONFIG.CAS}?dt=${encodeURIComponent(location.href)}`);
+        }, 2000);
+        return (<div>
+          <div>授权中。。。</div>
+        </div>);
+      }
     };
 
     return (

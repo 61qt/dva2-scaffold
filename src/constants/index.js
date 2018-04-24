@@ -1,6 +1,10 @@
 import DICT from './dict';
 
 const CONSTANTS = {
+  URL_CONFIG: {
+    CAS: 'https://cas.example.cn',
+    APP: 'https://app.example.cn',
+  },
   DICT,
   PAGE_SIZE: 30,
   // 直接获取全部数据，会使用到。
