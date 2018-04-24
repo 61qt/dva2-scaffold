@@ -1,8 +1,10 @@
 import React from 'react';
+// import jQuery from 'jquery';
 import { message, Spin, Form, Input, Icon, Button } from 'antd';
 import { NavLink, Link } from 'dva/router';
 
 import styles from '../login/index.less';
+// import CONSTANTS from '../../constants';
 import Services from '../../services';
 import formErrorMessageShow from '../../utils/form_error_message_show';
 import User from '../../utils/user';
@@ -53,6 +55,10 @@ class Component extends React.Component {
       this.setState({
         submitting: false,
       });
+      return window.location.replace(`/${window.location.search}`);
+      // return jQuery(window).trigger('CONSTANTS.EVENT.CAS.CALLBACK', {
+      //   ticket: data.token,
+      // });
     }).catch((rej) => {
       formErrorMessageShow(rej);
       this.setState({
