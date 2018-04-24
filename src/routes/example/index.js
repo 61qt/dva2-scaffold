@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd';
 import styles from './index.less';
+import Svg from '../../components_atom/svg';
 
 class Component extends React.Component {
   constructor(props) {
@@ -9,14 +10,12 @@ class Component extends React.Component {
     debugAdd('example', this);
     this.iconArr = [
       {
-        name: 'search',
-        // url: require('../../sprites/svg/search.svg'),
-        url: 'search',
+        url: require('../../sprites/svg/search.svg'),
+        type: 'search',
       },
       {
-        name: 'mail',
-        // url: require('../../sprites/svg/mail.svg'),
-        url: 'mail',
+        url: require('../../sprites/svg/mail.svg'),
+        type: 'mail',
       },
     ];
   }
@@ -33,7 +32,13 @@ class Component extends React.Component {
         <div className={styles.iconList}>
           {
             this.iconArr.map((icon) => {
-              return (<Icon key={icon.name} type={icon.url} />);
+              return (<Icon key={icon.type} type={icon.type} style={{ fontSize: '40px', color: '#ffffff' }} />);
+            })
+          }
+          <br />
+          {
+            this.iconArr.map((icon) => {
+              return (<Svg key={icon.type} link={icon.url} style={{ fontSize: '40px', color: '#ffffff' }} />);
             })
           }
         </div>

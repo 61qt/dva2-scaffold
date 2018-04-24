@@ -40,6 +40,9 @@
     "moment": "^2.22.1",
     "redbox-react": "^1.4.3",
     "rimraf": "^2.6.2",
-    "roadhog": "^2.0.0"
+    "roadhog": "^2.0.0",
+    "svg-sprite-loader": "^3.7.3",
+    "svgo": "^1.0.5",
+    "svgo-loader": "^2.1.0"
   }
 }
