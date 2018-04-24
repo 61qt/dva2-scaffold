@@ -4,26 +4,37 @@ import { connect } from 'dva';
 import { Switch, Route } from 'dva/router';
 
 const routeArr = [];
+const routeObj = {};
 
 /* eslint-disable import/first, import/newline-after-import */
 routeArr.push({
+  name: 'forget',
   path: 'forget',
   extra: true,
   component: require('../../components_cas/forget').default,
 });
 routeArr.push({
+  name: 'reg',
   path: 'reg',
   extra: true,
   component: require('../../components_cas/reg').default,
 });
 routeArr.push({
+  name: 'auto',
   path: 'auto',
   extra: true,
   component: require('../../components_cas/auto').default,
 });
 routeArr.push({
+  name: 'login',
   path: '',
   component: require('../../components_cas/login').default,
+});
+
+routeArr.forEach((elem) => {
+  // eslint-disable-next-line no-param-reassign
+  elem.url = `/cas/${elem.path}`;
+  routeObj[elem.name] = elem;
 });
 /* eslint-enable */
 
@@ -47,5 +58,9 @@ class Component extends React.Component {
 function mapStateToProps() {
   return {};
 }
+
+export {
+  routeObj,
+};
 
 export default connect(mapStateToProps)(Component);

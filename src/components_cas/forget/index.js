@@ -9,6 +9,7 @@ import formErrorMessageShow from '../../utils/form_error_message_show';
 import buildColumnFormItem from '../../utils/build_column_form_item';
 import User from '../../utils/user';
 // import CONSTANTS from '../../constants';
+import { routeObj } from '../../routes/cas/router';
 
 class Component extends React.Component {
   constructor(props) {
@@ -183,8 +184,8 @@ class Component extends React.Component {
                 </Button>
               </Form.Item>
               <Form.Item className={`${styles.actionLine}`}>
-                <NavLink to={`${this.props.match.path.replace(/\/?forget\/?/, '')}`}>直接登录</NavLink>
-                <NavLink className="float-right" to={`${this.props.match.path.replace(/\/?forget\/?/, '')}/reg`}>注册新用户</NavLink>
+                <NavLink to={routeObj.login.url}>直接登录</NavLink>
+                <NavLink className="float-right" to={routeObj.reg.url}>注册新用户</NavLink>
               </Form.Item>
             </Form>
           </div>
