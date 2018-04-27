@@ -24,7 +24,6 @@
 # 开发指南
 
 ## clone
-git cline git@github.com:shenqihui/dva2-scaffold.git
 
 ## 安装依赖
 
