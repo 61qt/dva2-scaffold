@@ -1,6 +1,11 @@
 管理系统脚手架
 ===
 
+# 注意：
+2021年01月11日15:46:59：这个开发和生产打包使用roadhog，有点慢，目前更新到 webpack4 了，查看 https://github.com/61qt/dva2-webpack4-scaffold
+
+
+
 # 框架架构
 各个运行方法基本上在 `package.json` 的 script 中有定义，跑一跑就清楚啥作用。
 主要使用采用 (dva2)[https://github.com/dvajs/dva] 和 [antd](https://ant.design/index-cn) 进行框架的搭建，结合 redux 和 dva/redux 的 model 进行数据的存储(内存存储)，路由器采用 dva/router ，打包工具采用 dva 默认采用的 roadhog 。
